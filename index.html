@@ -829,7 +829,6 @@
       const status  = document.getElementById('form-status');
       const btn     = document.getElementById('send-btn');
 
-      // Reset errors
       errName.textContent = '';
       errMail.textContent = '';
       errMsg.textContent  = '';
@@ -837,36 +836,41 @@
       status.className    = 'form-status';
 
       let valid = true;
-      if (!name)                             { errName.textContent = '↳ Name is required.';           valid = false; }
-      if (!email)                            { errMail.textContent = '↳ Email is required.';          valid = false; }
+      if (!name)    { errName.textContent = 'Name is required.'; valid = false; }
+      if (!email)   { errMail.textContent = 'Email is required.'; valid = false; }
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-                                             { errMail.textContent = '↳ Enter a valid email address.'; valid = false; }
-      if (!message)                          { errMsg.textContent  = '↳ Message cannot be empty.';    valid = false; }
-
+                    { errMail.textContent = 'Enter a valid email address.'; valid = false; }
+      if (!message) { errMsg.textContent  = 'Message cannot be empty.'; valid = false; }
       if (!valid) return;
 
-      // Build mailto link
-      const to      = 'sivavpy2005@gmail.com';
-      const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-      const body    = encodeURIComponent(
-        `Hi Siva,\n\nYou have a new message from your portfolio:\n\n` +
-        `Name   : ${name}\nEmail  : ${email}\n\nMessage:\n${message}\n\n` +
-        `— Sent via sivaporfolio contact form`
+      var subject = encodeURIComponent('Portfolio Contact from ' + name);
+      var body    = encodeURIComponent(
+        'Hi Siva,\n\nName    : ' + name +
+        '\nEmail   : ' + email +
+        '\n\nMessage :\n' + message +
+        '\n\n--- via siva-portfolio'
       );
-      const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+      var gmailURL = 'https://mail.google.com/mail/?view=cm&to=sivavpy2005@gmail.com&su=' + subject + '&body=' + body;
 
-      // Open mail client
       btn.disabled = true;
-      btn.textContent = 'Opening Mail…';
-      window.location.href = mailto;
+      btn.textContent = 'Opening Gmail...';
 
-      // Reset button after a moment
-      setTimeout(() => {
+      var gmailTab = window.open(gmailURL, '_blank');
+
+      setTimeout(function() {
         btn.disabled = false;
         btn.textContent = 'Send Message';
-        status.textContent = '✓ Your mail client should have opened. Send from there!';
-        status.classList.add('ok');
-      }, 1800);
+        if (!gmailTab || gmailTab.closed || typeof gmailTab.closed === 'undefined') {
+          status.innerHTML = '<span style="color:#c0756a;">Popup was blocked. Please allow popups for this page and try again.</span>';
+        } else {
+          status.innerHTML =
+            '<span style="color:#7aab8a;">Gmail compose opened in a new tab — just hit Send inside Gmail!</span>' +
+            '<br><span style="color:#7a7a7a;font-size:0.63rem;margin-top:8px;display:block;line-height:1.7;">' +
+            "Don't have Gmail? You'll need a Gmail account to use this button." +
+            '<br>Alternatively, email directly at ' +
+            '<a href="mailto:sivavpy2005@gmail.com" style="color:#b0b0b0;text-decoration:underline;text-underline-offset:3px;">sivavpy2005@gmail.com</a></span>';
+        }
+      }, 900);
     }
 
     const sections=document.querySelectorAll('section[id]');
