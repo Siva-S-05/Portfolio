@@ -187,8 +187,13 @@
     .form-field input, .form-field textarea { background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 12px 0; color: var(--white); font-family: 'DM Mono', monospace; font-size: 0.88rem; font-weight: 300; outline: none; transition: border-color 0.3s; resize: none; }
     .form-field input:focus, .form-field textarea:focus { border-color: var(--grey); }
     .form-field textarea { min-height: 100px; }
-    .form-submit { background: var(--white); color: var(--black); border: none; padding: 16px 40px; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: none; align-self: flex-start; transition: background 0.3s; }
+    .form-submit { background: var(--white); color: var(--black); border: none; padding: 16px 40px; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: none; align-self: flex-start; transition: background 0.3s, opacity 0.3s; }
     .form-submit:hover { background: var(--accent); }
+    .form-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+    .field-err { font-size: 0.62rem; color: #c0756a; letter-spacing: 0.08em; min-height: 16px; display: block; margin-top: 4px; }
+    .form-status { font-size: 0.68rem; letter-spacing: 0.12em; margin-top: 4px; display: block; min-height: 20px; transition: color 0.3s; }
+    .form-status.ok  { color: #7aab8a; }
+    .form-status.err { color: #c0756a; }
 
     /* FOOTER */
     footer { padding: 32px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
@@ -763,10 +768,23 @@
     </div>
     <div>
       <div class="contact-form">
-        <div class="form-field"><label>Your Name</label><input type="text" placeholder="John Doe"/></div>
-        <div class="form-field"><label>Email</label><input type="email" placeholder="john@example.com"/></div>
-        <div class="form-field"><label>Message</label><textarea placeholder="Tell me about the opportunity..."></textarea></div>
-        <button class="form-submit">Send Message</button>
+        <div class="form-field">
+          <label>Your Name</label>
+          <input id="cf-name" type="text" placeholder="John Doe"/>
+          <span class="field-err" id="err-name"></span>
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input id="cf-email" type="email" placeholder="john@example.com"/>
+          <span class="field-err" id="err-email"></span>
+        </div>
+        <div class="form-field">
+          <label>Message</label>
+          <textarea id="cf-message" placeholder="Tell me about the opportunity..."></textarea>
+          <span class="field-err" id="err-msg"></span>
+        </div>
+        <button class="form-submit" id="send-btn" onclick="sendMail()">Send Message</button>
+        <span class="form-status" id="form-status"></span>
       </div>
     </div>
   </section>
@@ -801,6 +819,56 @@
       entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
     },{threshold:0.12});
     document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+    function sendMail() {
+      const name    = document.getElementById('cf-name').value.trim();
+      const email   = document.getElementById('cf-email').value.trim();
+      const message = document.getElementById('cf-message').value.trim();
+      const errName = document.getElementById('err-name');
+      const errMail = document.getElementById('err-email');
+      const errMsg  = document.getElementById('err-msg');
+      const status  = document.getElementById('form-status');
+      const btn     = document.getElementById('send-btn');
+
+      // Reset errors
+      errName.textContent = '';
+      errMail.textContent = '';
+      errMsg.textContent  = '';
+      status.textContent  = '';
+      status.className    = 'form-status';
+
+      let valid = true;
+      if (!name)                             { errName.textContent = '↳ Name is required.';           valid = false; }
+      if (!email)                            { errMail.textContent = '↳ Email is required.';          valid = false; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+                                             { errMail.textContent = '↳ Enter a valid email address.'; valid = false; }
+      if (!message)                          { errMsg.textContent  = '↳ Message cannot be empty.';    valid = false; }
+
+      if (!valid) return;
+
+      // Build mailto link
+      const to      = 'sivavpy2005@gmail.com';
+      const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+      const body    = encodeURIComponent(
+        `Hi Siva,\n\nYou have a new message from your portfolio:\n\n` +
+        `Name   : ${name}\nEmail  : ${email}\n\nMessage:\n${message}\n\n` +
+        `— Sent via sivaporfolio contact form`
+      );
+      const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+
+      // Open mail client
+      btn.disabled = true;
+      btn.textContent = 'Opening Mail…';
+      window.location.href = mailto;
+
+      // Reset button after a moment
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+        status.textContent = '✓ Your mail client should have opened. Send from there!';
+        status.classList.add('ok');
+      }, 1800);
+    }
+
     const sections=document.querySelectorAll('section[id]');
     const navLinks=document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll',()=>{
