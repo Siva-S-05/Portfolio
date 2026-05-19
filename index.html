@@ -3,703 +3,964 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Siva S — Data Analyst & Data Science</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <title>Siva S — Data Science, Analytics & Machine Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --black:    #080808;
-      --dark:     #111111;
-      --mid:      #1c1c1c;
-      --border:   #2a2a2a;
-      --grey-dim: #444444;
-      --grey:     #7a7a7a;
-      --grey-lt:  #b0b0b0;
-      --white:    #f0ede8;
-      --accent:   #c8c0b4;
+      --white:     #ffffff;
+      --off-white: #f8f7f5;
+      --cream:     #f2f0ec;
+      --lt-grey:   #e8e5e0;
+      --mid-grey:  #c0bbb4;
+      --grey:      #8a8580;
+      --dark-grey: #4a4744;
+      --ink:       #1a1816;
+      --accent:    #1a56db;
+      --accent-lt: #e8f0fe;
+      --accent2:   #0f7b6c;
+      --border:    #e0ddd8;
+      --border-dk: #c8c4be;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--white); font-family: 'DM Mono', monospace; font-weight: 300; overflow-x: hidden; cursor: none; }
-    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 10px; height: 10px; background: var(--white); border-radius: 50%; pointer-events: none; mix-blend-mode: difference; }
-    #cursor-ring { position: fixed; top: 0; left: 0; z-index: 9998; width: 36px; height: 36px; border: 1px solid var(--grey); border-radius: 50%; pointer-events: none; transition: transform 0.35s cubic-bezier(.23,1,.32,1); mix-blend-mode: difference; }
-    body::before { content: ''; position: fixed; inset: 0; z-index: 9990; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.032; pointer-events: none; }
-
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px 48px; background: rgba(8,8,8,0.9); backdrop-filter: blur(10px); }
-    nav::after { content: ''; position: absolute; bottom: 0; left: 48px; right: 48px; height: 1px; background: var(--border); }
-    .nav-logo { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 1.3rem; letter-spacing: 0.02em; color: var(--white); text-decoration: none; }
-    .nav-links { display: flex; gap: 36px; }
-    .nav-links a { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color 0.3s; position: relative; }
-    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--white); transition: width 0.3s ease; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a:hover::after { width: 100%; }
-
-    /* HERO */
-    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: end; padding: 120px 48px 80px; position: relative; gap: 40px; }
-    .hero-left { padding-bottom: 20px; }
-    .hero-tag { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey); margin-bottom: 32px; display: flex; align-items: center; gap: 14px; }
-    .hero-tag::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--grey-dim); }
-    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.0; font-size: clamp(4rem, 8.5vw, 8rem); letter-spacing: -0.02em; color: var(--white); }
-    h1 em { font-style: italic; color: var(--grey-lt); display: block; padding-left: 80px; }
-    .hero-right { display: flex; flex-direction: column; justify-content: flex-end; gap: 40px; }
-    .hero-desc { font-size: 0.9rem; line-height: 1.9; color: var(--grey); max-width: 360px; border-left: 1px solid var(--border); padding-left: 24px; }
-    .hero-cta { display: flex; gap: 20px; align-items: center; }
-    .btn-primary { display: inline-block; padding: 14px 32px; border: 1px solid var(--white); color: var(--white); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
-    .btn-primary:hover { background: var(--white); color: var(--black); }
-    .btn-ghost { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.3s; }
-    .btn-ghost:hover { color: var(--white); }
-    .btn-ghost::after { content: '→'; font-size: 1rem; }
-    .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; }
-    .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--grey-dim)); animation: scrollAnim 2s ease infinite; }
-    @keyframes scrollAnim { 0%{transform:scaleY(0);transform-origin:top;opacity:0} 50%{transform:scaleY(1);transform-origin:top;opacity:1} 100%{transform:scaleY(1);transform-origin:bottom;opacity:0} }
-    .scroll-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-dim); writing-mode: vertical-rl; }
-
-    /* MARQUEE */
-    .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; padding: 18px 0; background: var(--dark); }
-    .marquee-track { display: flex; animation: marqueeScroll 24s linear infinite; white-space: nowrap; }
-    .marquee-track span { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-dim); padding: 0 40px; }
-    .marquee-track .dot { color: var(--grey-dim); font-size: 0.4rem; padding: 0; display: inline-flex; align-items: center; }
-    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-    /* ABOUT */
-    #about { display: grid; grid-template-columns: 1fr 2fr; padding: 120px 48px; border-bottom: 1px solid var(--border); }
-    .section-index { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-dim); padding-top: 6px; }
-    .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-    .about-text h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.2rem, 4vw, 3.8rem); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 32px; color: var(--white); }
-    .about-text p { font-size: 0.88rem; line-height: 1.95; color: var(--grey); margin-bottom: 20px; }
-    .about-links { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-    .about-link { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--grey-dim); text-decoration: none; display: flex; align-items: center; gap: 10px; transition: color 0.3s; }
-    .about-link:hover { color: var(--white); }
-    .about-link::before { content: '↗'; font-size: 0.75rem; }
-    .about-stats { display: flex; flex-direction: column; gap: 40px; padding-top: 8px; }
-    .stat { border-bottom: 1px solid var(--border); padding-bottom: 24px; }
-    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 6px; }
-    .stat-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey-dim); }
-
-    /* SECTION HEADER */
-    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
-    .section-header h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.01em; line-height: 1; }
-    .section-header small { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); }
-
-    /* PROJECTS — corrected */
-    #work { padding: 120px 48px; }
-    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    
-    .project-card {
-      position: relative; overflow: hidden; background: var(--mid);
-      aspect-ratio: 16/9;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 20px 22px;
-      transition: transform 0.5s cubic-bezier(.23,1,.32,1);
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
     }
-    .project-card.card-wide { grid-column: span 2; aspect-ratio: 21/9; }
-    .project-card:hover { transform: scale(0.995); }
-    .project-bg { position: absolute; inset: 0; z-index: 0; transition: transform 0.6s cubic-bezier(.23,1,.32,1); }
-    .project-card:hover .project-bg { transform: scale(1.04); }
-    .card-1 .project-bg { background: linear-gradient(135deg, #111 0%, #1f1f1f 50%, #0d0d0d 100%); }
-    .card-2 .project-bg { background: radial-gradient(ellipse at 30% 70%, #222 0%, #0a0a0a 60%); }
-    .card-3 .project-bg { background: linear-gradient(220deg, #1a1a1a 0%, #0f0f0f 100%); }
-    .card-4 .project-bg { background: conic-gradient(from 45deg at 70% 30%, #1c1c1c, #111, #181818, #1c1c1c); }
-    .card-5 .project-bg { background: linear-gradient(160deg, #161616 0%, #111 60%, #0c0c0c 100%); }
-    .card-6 .project-bg { background: radial-gradient(ellipse at 70% 30%, #1e1e1e 0%, #0a0a0a 70%); }
 
-    /* ─── CARD ART (SVG visual area) ─── */
-    .card-art {
-      position: absolute; inset: 0; z-index: 1; overflow: hidden;
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--off-white); }
+    ::-webkit-scrollbar-thumb { background: var(--mid-grey); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700; font-size: 1.25rem;
+      color: var(--ink); text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--grey); text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      transition: background 0.25s, color 0.25s !important;
+    }
+    .nav-cta:hover { background: #1246b5 !important; color: #fff !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); transition: all 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 48px 60px;
+      gap: 64px;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(26,86,219,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(15,123,108,0.04) 0%, transparent 70%);
       pointer-events: none;
     }
-    .card-art svg {
-      position: absolute;
-      opacity: 0.22;
-      transition: opacity 0.5s ease;
+    .hero-left { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-lt);
+      border: 1px solid rgba(26,86,219,0.2);
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.04em;
+      margin-bottom: 28px;
     }
-    .project-card:hover .card-art svg { opacity: 0.36; }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700; font-size: clamp(2.8rem, 5.5vw, 5rem);
+      line-height: 1.08; letter-spacing: -0.02em;
+      color: var(--ink); margin-bottom: 24px;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 1rem; line-height: 1.75; color: var(--dark-grey);
+      max-width: 440px; margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      padding: 14px 28px; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.03em;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #1246b5; transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--ink);
+      padding: 14px 28px; border-radius: 6px;
+      border: 1.5px solid var(--border-dk);
+      font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.03em;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .btn-outline:hover { border-color: var(--ink); background: var(--off-white); }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .hstat { display: flex; flex-direction: column; gap: 4px; }
+    .hstat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--ink); line-height: 1;
+    }
+    .hstat-label { font-size: 0.72rem; color: var(--grey); letter-spacing: 0.08em; font-weight: 500; }
 
-    /* keep old pseudo-element accents as subtle bg layer */
-    .card-1 .card-art::before { content: ''; position: absolute; width: 320px; height: 320px; border: 1px solid #2e2e2e; border-radius: 50%; top: -90px; right: -90px; }
-    .card-2 .card-art::before { content: ''; position: absolute; width: 200px; height: 200px; border: 1px solid #2a2a2a; transform: rotate(45deg); bottom: -60px; right: -60px; }
+    /* HERO RIGHT — image mosaic */
+    .hero-right {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 220px 180px;
+      gap: 12px;
+    }
+    .hero-img {
+      border-radius: 10px; overflow: hidden;
+      background: var(--lt-grey);
+      position: relative;
+    }
+    .hero-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.5s ease;
+    }
+    .hero-img:hover img { transform: scale(1.04); }
+    .hero-img:first-child { grid-row: span 2; border-radius: 14px; }
+    .hero-img-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.55));
+      color: #fff; font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 20px 12px 10px;
+    }
 
-    .project-info { position: relative; z-index: 2; }
-    .project-cat { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: #888888; margin-bottom: 8px; }
-    .project-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.6vw, 2.1rem); font-weight: 300; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
-    .project-desc { font-size: 0.84rem; line-height: 1.8; color: #909090; max-width: 520px; margin-bottom: 6px; }
-    .project-year { font-size: 0.76rem; letter-spacing: 0.15em; color: #777777; }
-    .project-link { position: absolute; top: 20px; right: 20px; z-index: 2; width: 40px; height: 40px; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #888888; text-decoration: none; font-size: 1rem; transition: border-color 0.3s, color 0.3s, background 0.3s; }
-    .project-link:hover { border-color: var(--white); color: var(--black); background: var(--white); }
-    .badge { display: inline-block; padding: 4px 12px; border: 1px solid #555; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #999999; margin-bottom: 10px; }
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden; padding: 14px 0;
+      background: var(--off-white);
+    }
+    .marquee-track {
+      display: flex;
+      animation: marqueeScroll 28s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--grey); padding: 0 32px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .marquee-track .dot { color: var(--mid-grey); font-size: 0.4rem; padding: 0; display: inline-flex; align-items: center; }
+    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* EXPERIENCE */
-    #experience { padding: 120px 48px; border-top: 1px solid var(--border); background: var(--dark); }
-    .exp-list { display: flex; flex-direction: column; }
-    .exp-item { display: grid; grid-template-columns: 180px 1fr 140px; gap: 40px; align-items: start; padding: 36px 0; border-top: 1px solid var(--border); transition: background 0.3s; }
-    .exp-item:last-child { border-bottom: 1px solid var(--border); }
-    .exp-item:hover { background: rgba(255,255,255,0.015); }
-    .exp-period { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--grey-dim); padding-top: 4px; }
-    .exp-role { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--white); margin-bottom: 6px; }
-    .exp-company { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--grey); margin-bottom: 14px; }
-    .exp-desc { font-size: 0.82rem; line-height: 1.85; color: var(--grey-dim); max-width: 560px; }
-    .exp-location { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey-dim); text-align: right; padding-top: 4px; }
+    /* ── SECTION COMMONS ── */
+    section { position: relative; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before { content: ''; display: inline-block; width: 24px; height: 2px; background: var(--accent); }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      color: var(--ink); line-height: 1.1;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-header-row {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 48px; padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-header-row .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .sh-meta { font-size: 0.75rem; color: var(--grey); letter-spacing: 0.08em; }
 
-    /* SKILLS */
-    #skills { padding: 120px 48px; border-top: 1px solid var(--border); }
-    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border: 1px solid var(--border); }
-    .skill-block { padding: 40px 32px; border-right: 1px solid var(--border); transition: background 0.3s; }
-    .skill-block:last-child { border-right: none; }
-    .skill-block:hover { background: var(--mid); }
-    .skill-num { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; color: var(--grey-dim); margin-bottom: 32px; display: block; }
-    .skill-icon { font-size: 1.5rem; margin-bottom: 20px; filter: grayscale(1); opacity: 0.7; }
-    .skill-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); margin-bottom: 12px; }
-    .skill-tools { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--grey-dim); line-height: 2.1; }
+    /* ── ABOUT ── */
+    #about {
+      padding: 100px 48px;
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+    }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; max-width: 1200px; margin: 0 auto; }
+    .about-text { }
+    .about-text p { font-size: 0.95rem; line-height: 1.9; color: var(--dark-grey); margin-bottom: 20px; }
+    .about-links { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+    .about-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.82rem; color: var(--accent); text-decoration: none;
+      font-family: 'IBM Plex Mono', monospace;
+      transition: gap 0.2s;
+    }
+    .about-link:hover { gap: 14px; }
+    .about-link::before { content: '↗'; }
+    .about-right { display: flex; flex-direction: column; gap: 24px; }
+    /* About image */
+    .about-photo {
+      border-radius: 12px; overflow: hidden;
+      height: 260px; position: relative;
+      background: var(--lt-grey);
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .about-photo-label {
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--border);
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark-grey);
+    }
+    .about-stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .astat {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px 16px; text-align: center;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .astat:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(26,86,219,0.08); }
+    .astat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--ink); line-height: 1; }
+    .astat-label { font-size: 0.68rem; color: var(--grey); letter-spacing: 0.08em; margin-top: 6px; font-weight: 500; }
 
-    /* CERTS */
-    #certs { padding: 80px 48px; border-top: 1px solid var(--border); background: var(--dark); }
-    .cert-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
-    .cert-pill { padding: 12px 22px; border: 1px solid var(--border); font-size: 0.75rem; letter-spacing: 0.1em; color: var(--grey); display: flex; align-items: center; gap: 10px; transition: border-color 0.3s, color 0.3s; }
-    .cert-pill:hover { border-color: var(--grey); color: var(--white); }
-    .cert-pill::before { content: '◈'; font-size: 0.55rem; color: var(--grey-dim); }
+    /* ── PROJECTS ── */
+    #work { padding: 100px 48px; background: var(--white); }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      box-shadow: 0 12px 40px rgba(26,86,219,0.1);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .card-wide { grid-column: span 2; }
+    .card-visual {
+      height: 200px; overflow: hidden;
+      background: var(--cream);
+      position: relative;
+    }
+    .card-wide .card-visual { height: 240px; }
+    .card-visual img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      filter: brightness(0.92);
+    }
+    .project-card:hover .card-visual img { transform: scale(1.04); filter: brightness(1); }
+    .card-visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.25));
+    }
+    .card-tag {
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 0.67rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--dark-grey);
+    }
+    .card-year {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--accent); color: #fff;
+      padding: 4px 10px; border-radius: 4px;
+      font-size: 0.68rem; font-weight: 600;
+    }
+    .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .card-stack { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.06em; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
+    .card-desc { font-size: 0.85rem; line-height: 1.75; color: var(--dark-grey); flex: 1; }
+    .card-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff4e6; border: 1px solid #f0c67a;
+      padding: 4px 12px; border-radius: 4px;
+      font-size: 0.68rem; font-weight: 600;
+      color: #8a5f00; letter-spacing: 0.06em;
+    }
 
-    /* EDUCATION */
-    #education { padding: 80px 48px; border-top: 1px solid var(--border); }
+    /* ── EXPERIENCE ── */
+    #experience {
+      padding: 100px 48px;
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+    }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 160px 1fr auto;
+      gap: 32px; padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+      align-items: start;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-item:hover { background: var(--white); border-radius: 8px; }
+    .exp-period {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; color: var(--grey);
+      padding-top: 4px;
+    }
+    .exp-role { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .exp-company { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; margin-bottom: 12px; }
+    .exp-desc { font-size: 0.85rem; line-height: 1.85; color: var(--dark-grey); max-width: 540px; }
+    .exp-location {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--grey); text-align: right; padding-top: 4px;
+      white-space: nowrap;
+    }
+
+    /* ── SKILLS ── */
+    #skills { padding: 100px 48px; background: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .skill-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px 24px;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .skill-block:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(26,86,219,0.08);
+      transform: translateY(-2px);
+    }
+    .skill-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem; color: var(--mid-grey); margin-bottom: 24px; display: block;
+    }
+    .skill-icon { font-size: 2rem; margin-bottom: 16px; }
+    .skill-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 12px; }
+    .skill-tools { font-size: 0.8rem; color: var(--dark-grey); line-height: 2; }
+    .skill-tools span {
+      display: inline-block;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 2px 10px; border-radius: 12px;
+      font-size: 0.72rem; margin: 2px 2px;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--dark-grey);
+    }
+
+    /* ── CERTS ── */
+    #certs { padding: 80px 48px; border-top: 1px solid var(--border); background: var(--off-white); }
+    .cert-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
+    .cert-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1px solid var(--border);
+      padding: 12px 20px; border-radius: 8px;
+      font-size: 0.78rem; color: var(--dark-grey);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .cert-pill:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(26,86,219,0.08); }
+    .cert-icon { font-size: 1rem; }
+
+    /* ── EDUCATION ── */
+    #education { padding: 80px 48px; border-top: 1px solid var(--border); background: var(--white); }
     .edu-list { display: flex; flex-direction: column; }
-    .edu-item { display: grid; grid-template-columns: 120px 1fr auto; gap: 40px; padding: 28px 0; border-top: 1px solid var(--border); align-items: center; }
-    .edu-item:last-child { border-bottom: 1px solid var(--border); }
-    .edu-year { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--grey-dim); }
-    .edu-degree { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); margin-bottom: 4px; }
-    .edu-school { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--grey-dim); }
-    .edu-grade { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--grey-lt); text-align: right; }
+    .edu-item {
+      display: grid; grid-template-columns: 110px 1fr auto;
+      gap: 32px; padding: 28px 0;
+      border-bottom: 1px solid var(--border); align-items: center;
+    }
+    .edu-item:first-child { border-top: 1px solid var(--border); }
+    .edu-year { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--grey); }
+    .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .edu-school { font-size: 0.78rem; color: var(--grey); }
+    .edu-grade { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); text-align: right; }
 
-    /* CONTACT */
-    #contact { padding: 120px 48px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; border-top: 1px solid var(--border); }
-    .contact-left h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; letter-spacing: -0.02em; color: var(--white); margin-bottom: 40px; }
-    .contact-left h2 em { font-style: italic; color: var(--grey-lt); }
-    .contact-detail { display: flex; flex-direction: column; gap: 24px; }
-    .contact-item { display: flex; flex-direction: column; gap: 6px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
-    .contact-item label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-dim); }
-    .contact-item a, .contact-item span { font-size: 0.88rem; color: var(--grey-lt); text-decoration: none; transition: color 0.3s; }
-    .contact-item a:hover { color: var(--white); }
-    .contact-form { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; }
-    .form-field { display: flex; flex-direction: column; gap: 8px; }
-    .form-field label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-dim); }
-    .form-field input, .form-field textarea { background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 12px 0; color: var(--white); font-family: 'DM Mono', monospace; font-size: 0.88rem; font-weight: 300; outline: none; transition: border-color 0.3s; resize: none; }
-    .form-field input:focus, .form-field textarea:focus { border-color: var(--grey); }
-    .form-field textarea { min-height: 100px; }
-    .form-submit { background: var(--white); color: var(--black); border: none; padding: 16px 40px; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: none; align-self: flex-start; transition: background 0.3s, opacity 0.3s; }
-    .form-submit:hover { background: var(--accent); }
-    .form-submit:disabled { opacity: 0.45; cursor: not-allowed; }
-    .field-err { font-size: 0.62rem; color: #c0756a; letter-spacing: 0.08em; min-height: 16px; display: block; margin-top: 4px; }
-    .form-status { font-size: 0.68rem; letter-spacing: 0.12em; margin-top: 4px; display: block; min-height: 20px; transition: color 0.3s; }
-    .form-status.ok  { color: #7aab8a; }
-    .form-status.err { color: #c0756a; }
+    /* ── DS VISUAL SECTION ── */
+    #ds-visual {
+      padding: 80px 48px;
+      background: var(--ink);
+      overflow: hidden; position: relative;
+    }
+    #ds-visual::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 70% 70% at 80% 50%, rgba(26,86,219,0.25) 0%, transparent 70%);
+    }
+    .ds-visual-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: center; }
+    .ds-visual-text h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 20px; }
+    .ds-visual-text h2 em { font-style: italic; color: #7aabff; }
+    .ds-visual-text p { font-size: 0.9rem; line-height: 1.8; color: rgba(255,255,255,0.65); }
+    .ds-img-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .ds-img-card { border-radius: 10px; overflow: hidden; height: 160px; position: relative; }
+    .ds-img-card img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); display: block; }
+    .ds-img-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: rgba(255,255,255,0.8); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 20px 10px 8px; font-weight: 500;
+    }
 
-    /* FOOTER */
-    footer { padding: 32px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    footer small { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--grey-dim); }
-    .social-links { display: flex; gap: 28px; }
-    .social-links a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey-dim); text-decoration: none; transition: color 0.3s; }
-    .social-links a:hover { color: var(--white); }
+    /* ── CONTACT ── */
+    #contact {
+      padding: 100px 48px 80px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+    .contact-left h2 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.1;
+      letter-spacing: -0.02em; color: var(--ink); margin-bottom: 36px;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--accent); }
+    .contact-detail { display: flex; flex-direction: column; gap: 0; }
+    .contact-item {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
+    }
+    .contact-item label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); font-weight: 600; }
+    .contact-item a, .contact-item span { font-size: 0.9rem; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+    .contact-item a:hover { color: var(--accent); }
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); font-weight: 600; }
+    .form-field input, .form-field textarea {
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem; outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      resize: none;
+    }
+    .form-field input:focus, .form-field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,86,219,0.08);
+      background: #fff;
+    }
+    .form-field textarea { min-height: 110px; }
+    .form-submit {
+      background: var(--accent); color: #fff;
+      border: none; padding: 14px 32px; border-radius: 6px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.04em; cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .form-submit:hover { background: #1246b5; transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .field-err { font-size: 0.7rem; color: #c0392b; min-height: 16px; display: block; }
+    .form-status { font-size: 0.78rem; margin-top: 4px; display: block; min-height: 20px; }
 
-    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 48px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--off-white);
+    }
+    footer small { font-size: 0.75rem; color: var(--grey); }
+    .social-links { display: flex; gap: 24px; }
+    .social-links a {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--grey); text-decoration: none; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .social-links a:hover { color: var(--accent); }
+
+    /* ── FADE UP ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    @media (max-width: 900px) {
-      nav { padding: 20px 24px; }
-      nav::after { left: 24px; right: 24px; }
-      .nav-links { gap: 18px; }
-      #hero { grid-template-columns: 1fr; padding: 100px 24px 80px; }
-      #about { grid-template-columns: 1fr; padding: 80px 24px; }
-      .about-content { grid-template-columns: 1fr; gap: 48px; }
-      #work { padding: 80px 24px; }
+    /* ── MOBILE NAV DRAWER ── */
+    .nav-drawer {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid var(--border);
+      padding: 16px 24px; flex-direction: column; gap: 0; z-index: 99;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.9rem; font-weight: 500; color: var(--ink);
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      #hero { grid-template-columns: 1fr; padding: 90px 24px 60px; gap: 40px; min-height: auto; }
+      .hero-right { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 140px; }
+
+      #about { padding: 72px 24px; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-stats-row { grid-template-columns: 1fr 1fr 1fr; }
+
+      #work { padding: 72px 24px; }
       .projects-grid { grid-template-columns: 1fr; }
-      .project-card { aspect-ratio: 16/9; }
-      .project-card:first-child { grid-column: span 1; aspect-ratio: 16/9; }
-      #experience { padding: 80px 24px; }
+      .card-wide { grid-column: span 1; }
+
+      #experience { padding: 72px 24px; }
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
       .exp-location { text-align: left; }
-      #skills { padding: 80px 24px; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .skill-block:nth-child(even) { border-right: none; }
+
+      #skills { padding: 72px 24px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+
       #certs, #education { padding: 60px 24px; }
-      .edu-item { grid-template-columns: 80px 1fr; }
+      .edu-item { grid-template-columns: 90px 1fr; }
       .edu-grade { display: none; }
-      #contact { grid-template-columns: 1fr; padding: 80px 24px; }
-      footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
+
+      #ds-visual { padding: 60px 24px; }
+      .ds-visual-inner { grid-template-columns: 1fr; gap: 40px; }
+      .ds-img-row { grid-template-columns: 1fr 1fr; }
+      .ds-img-row .ds-img-card:last-child { display: none; }
+
+      #contact { grid-template-columns: 1fr; padding: 72px 24px; gap: 48px; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
+
+      .hero-stats { gap: 20px; }
+      .section-header-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2.4rem; }
+      .hero-right { grid-template-columns: 1fr; grid-template-rows: 180px; }
+      .hero-img:first-child { grid-row: span 1; }
+      .hero-img:not(:first-child) { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .about-stats-row { grid-template-columns: 1fr 1fr; }
+      .about-stats-row .astat:last-child { grid-column: span 2; }
+      .cert-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <div id="cursor"></div>
-  <div id="cursor-ring"></div>
-
+  <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#">Siva S.</a>
+    <a class="nav-logo" href="#">Siva<span>.</span></a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#work">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-cta">Hire Me</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
     </div>
   </nav>
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#work" onclick="closeMenu()">Projects</a>
+    <a href="#experience" onclick="closeMenu()">Experience</a>
+    <a href="#skills" onclick="closeMenu()">Skills</a>
+    <a href="#certs" onclick="closeMenu()">Certifications</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
     <div class="hero-left">
-      <p class="hero-tag">Open to Opportunities — 2026</p>
-      <h1>Data<br/><em>Analyst &</em><br/>Data Science</h1>
-    </div>
-    <div class="hero-right">
-      <p class="hero-desc">
-        Transforming raw data into decisions. Specializing in data science,
-        data visualization, and predictive modeling — based in Tamil Nadu, India.
+      <div class="hero-badge">Open to Opportunities — 2026</div>
+      <h1>Data Science,<br/><em>Analytics &</em><br/>Machine Learning</h1>
+      <p class="hero-sub">
+        Turning raw data into actionable intelligence. Specializing in predictive modeling,
+        data visualization, and end-to-end ML pipelines — based in Tamil Nadu, India.
       </p>
       <div class="hero-cta">
-        <a class="btn-primary" href="#work">View Projects</a>
-        <a class="btn-ghost" href="#contact">Hire Me</a>
+        <a class="btn-primary" href="#work">View Projects ↓</a>
+        <a class="btn-outline" href="#contact">Get in Touch →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num">3+</div><div class="hstat-label">Internships</div></div>
+        <div class="hstat"><div class="hstat-num">7+</div><div class="hstat-label">Projects</div></div>
+        <div class="hstat"><div class="hstat-num">7.42</div><div class="hstat-label">CGPA</div></div>
+        <div class="hstat"><div class="hstat-num">5+</div><div class="hstat-label">Certifications</div></div>
       </div>
     </div>
-    <div class="hero-scroll">
-      <span class="scroll-label">scroll</span>
-      <div class="scroll-line"></div>
+
+    <div class="hero-right fade-up">
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Data Science Dashboard" loading="lazy"/>
+        <div class="hero-img-label">Data Analytics</div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&q=80" alt="Machine Learning" loading="lazy"/>
+        <div class="hero-img-label">Machine Learning</div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=400&q=80" alt="Python Data Science" loading="lazy"/>
+        <div class="hero-img-label">Python & AI</div>
+      </div>
     </div>
   </section>
 
   <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span>Python</span><span class="dot">·</span><span>Machine Learning</span><span class="dot">·</span><span>Power BI</span><span class="dot">·</span><span>Data Analytics</span><span class="dot">·</span><span>TensorFlow</span><span class="dot">·</span><span>MySQL</span><span class="dot">·</span><span>Tableau</span><span class="dot">·</span><span>Scikit-learn</span><span class="dot">·</span><span class="dot">·</span><span>Pandas</span><span class="dot">·</span>
-      <span>Python</span><span class="dot">·</span><span>Machine Learning</span><span class="dot">·</span><span>Power BI</span><span class="dot">·</span><span>Data Analytics</span><span class="dot">·</span><span>TensorFlow</span><span class="dot">·</span><span>MySQL</span><span class="dot">·</span><span>Tableau</span><span class="dot">·</span><span>Scikit-learn</span><span class="dot">·</span><span class="dot">·</span><span>Pandas</span><span class="dot">·</span>
+      <span>Python</span><span class="dot">·</span>
+      <span>Machine Learning</span><span class="dot">·</span>
+      <span>Power BI</span><span class="dot">·</span>
+      <span>Data Analytics</span><span class="dot">·</span>
+      <span>TensorFlow</span><span class="dot">·</span>
+      <span>MySQL</span><span class="dot">·</span>
+      <span>Tableau</span><span class="dot">·</span>
+      <span>Scikit-learn</span><span class="dot">·</span>
+      <span>AWS</span><span class="dot">·</span>
+      <span>Pandas</span><span class="dot">·</span>
+      <span>Deep Learning</span><span class="dot">·</span>
+      <span>FastAPI</span><span class="dot">·</span>
+      <span>Python</span><span class="dot">·</span>
+      <span>Machine Learning</span><span class="dot">·</span>
+      <span>Power BI</span><span class="dot">·</span>
+      <span>Data Analytics</span><span class="dot">·</span>
+      <span>TensorFlow</span><span class="dot">·</span>
+      <span>MySQL</span><span class="dot">·</span>
+      <span>Tableau</span><span class="dot">·</span>
+      <span>Scikit-learn</span><span class="dot">·</span>
+      <span>AWS</span><span class="dot">·</span>
+      <span>Pandas</span><span class="dot">·</span>
+      <span>Deep Learning</span><span class="dot">·</span>
+      <span>FastAPI</span><span class="dot">·</span>
     </div>
   </div>
 
   <!-- ABOUT -->
   <section id="about">
-    <div class="section-index">01 / About</div>
-    <div class="about-content">
-      <div class="about-text">
-        <h2>Turning data into<br/><em>insight</em></h2>
-        <p>I'm Siva S, a B.Tech student in Artificial Intelligence and Data Science at P.A. College of Engineering and Technology, Pollachi (2026). I'm passionate about solving complex real-world problems through data.</p>
-        <p>With hands-on internship experience across four companies and several live projects — from medical deep learning to IoT hackathons — I bring both analytical rigor and engineering precision to every challenge.</p>
-         <p>. Experienced in building and deploying end-to-end machine learning applications with real-time inference.</p>
+    <div class="about-inner">
+      <div class="about-text fade-up">
+        <div class="section-label">01 / About</div>
+        <h2 class="section-title" style="margin-bottom:24px;">Turning data into<br/><em>insight</em></h2>
+        <p>I'm Siva S, a B.Tech student in Artificial Intelligence and Data Science at P.A. College of Engineering and Technology, Pollachi (2026). I'm passionate about solving complex real-world problems through data-driven approaches.</p>
+        <p>With hands-on internship experience across three companies and several live projects — from ML model deployments to IoT hackathons — I bring both analytical rigor and engineering precision to every challenge.</p>
+        <p>Experienced in building and deploying end-to-end machine learning applications with real-time inference, cloud infrastructure, and interactive dashboards.</p>
         <div class="about-links">
           <a class="about-link" href="https://www.linkedin.com/in/siva-s-400145323" target="_blank">linkedin.com/in/siva-s-400145323</a>
           <a class="about-link" href="https://github.com/Siva-S-05" target="_blank">github.com/Siva-S-05</a>
           <a class="about-link" href="https://www.kaggle.com/sivas07" target="_blank">kaggle.com/sivas07</a>
         </div>
       </div>
-      <div class="about-stats">
-        <div class="stat fade-up"><div class="stat-num">3</div><div class="stat-label">Internships Completed</div></div>
-        <div class="stat fade-up"><div class="stat-num">7</div><div class="stat-label">Projects Built</div></div>
-        <div class="stat fade-up"><div class="stat-num">7.35</div><div class="stat-label">CGPA — B.Tech AI&DS</div></div>
+      <div class="about-right fade-up">
+        <div class="about-photo">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80" alt="Data Science Workspace" loading="lazy"/>
+          <div class="about-photo-label">AI & Data Science</div>
+        </div>
+        <div class="about-stats-row">
+          <div class="astat"><div class="astat-num">3</div><div class="astat-label">Internships</div></div>
+          <div class="astat"><div class="astat-num">7</div><div class="astat-label">Projects</div></div>
+          <div class="astat"><div class="astat-num">7.42</div><div class="astat-label">CGPA</div></div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- PROJECTS -->
   <section id="work">
-  <div class="section-header">
-    <h2>Selected Projects</h2>
-    <small>2022 — 2026</small>
-  </div>
-  <div class="projects-grid">
-
-    <!-- CARD 1 — Customer Churn (wide) -->
-    <div class="project-card card-5 card-wide fade-up">
-      <div class="project-bg"></div>
-      <div class="card-art">
-        <svg width="100%" height="100%" viewBox="0 0 360 210" preserveAspectRatio="xMidYMid slice" style="top:0;left:0;">
-          <line x1="180" y1="55" x2="90" y2="110" stroke="#444" stroke-width="0.6" stroke-dasharray="4 3"/>
-          <line x1="180" y1="55" x2="180" y2="115" stroke="#444" stroke-width="0.6" stroke-dasharray="4 3"/>
-          <line x1="180" y1="55" x2="270" y2="110" stroke="#444" stroke-width="0.6" stroke-dasharray="4 3"/>
-          <line x1="90" y1="110" x2="60" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="90" y1="110" x2="120" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="270" y1="110" x2="240" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="270" y1="110" x2="300" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="180" y1="115" x2="180" y2="165" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <rect x="153" y="38" width="54" height="24" fill="#1e1e1e" stroke="#666" stroke-width="0.8" rx="2"/>
-          <text x="158" y="50" fill="#aaa" font-size="6.5" font-family="monospace">Dataset</text>
-          <text x="163" y="58" fill="#888" font-size="6" font-family="monospace">CSV</text>
-          <rect x="52" y="100" width="72" height="22" fill="#1a1a1a" stroke="#555" stroke-width="0.7" rx="2"/>
-          <text x="57" y="115" fill="#888" font-size="7" font-family="monospace">Preprocess</text>
-          <rect x="142" y="105" width="76" height="22" fill="#1a1a1a" stroke="#555" stroke-width="0.7" rx="2"/>
-          <text x="148" y="120" fill="#888" font-size="7" font-family="monospace">RandomForest</text>
-          <rect x="238" y="100" width="64" height="22" fill="#1a1a1a" stroke="#777" stroke-width="0.8" rx="2"/>
-          <text x="248" y="115" fill="#999" font-size="7" font-family="monospace">FastAPI</text>
-          <rect x="30" y="154" width="52" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="34" y="165" fill="#666" font-size="6.5" font-family="monospace">joblib</text>
-          <rect x="92" y="154" width="60" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="97" y="165" fill="#666" font-size="6.5" font-family="monospace">Scikit-learn</text>
-          <rect x="213" y="154" width="56" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="218" y="165" fill="#666" font-size="6.5" font-family="monospace">Render</text>
-          <rect x="276" y="154" width="60" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="280" y="165" fill="#666" font-size="6.5" font-family="monospace">GitHub Pages</text>
-          <rect x="150" y="158" width="60" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="154" y="169" fill="#666" font-size="6.5" font-family="monospace">HTML / JS / CSS</text>
-          <text x="68" y="92" fill="#555" font-size="6.5" font-family="monospace">Clean</text>
-          <text x="186" y="92" fill="#555" font-size="6.5" font-family="monospace">Train</text>
-          <text x="246" y="92" fill="#555" font-size="6.5" font-family="monospace">Deploy</text>
-        </svg>
+    <div class="section-header-row fade-up">
+      <div>
+        <div class="section-label">02 / Work</div>
+        <h2 class="section-title">Selected Projects</h2>
       </div>
-      <div class="project-info">
-        <p class="project-cat">FastAPI · Python · Scikit-learn · Render · GitHub Pages · JavaScript</p>
-        <h3 class="project-title">Customer Churn Prediction System</h3>
-        <p class="project-desc">Built and deployed a full-stack customer churn prediction system using Random Forest and FastAPI with real-time inference and cloud integration.</p>
-        <span class="project-year">2026</span>
+      <span class="sh-meta">2022 — 2026</span>
+    </div>
+    <div class="projects-grid">
+
+      <!-- Customer Churn — wide -->
+      <div class="project-card card-wide fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&q=80" alt="Customer Churn Prediction" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">Full Stack ML</div>
+          <div class="card-year">2026</div>
+        </div>
+        <div class="card-body">
+          <div class="card-stack">FastAPI · Python · Scikit-learn · Render · GitHub Pages · JavaScript</div>
+          <h3 class="card-title">Customer Churn Prediction System</h3>
+          <p class="card-desc">Built and deployed a full-stack customer churn prediction system using Random Forest and FastAPI with real-time inference and cloud integration. Accessible live via GitHub Pages frontend calling a Render-hosted API.</p>
+        </div>
+      </div>
+
+      <!-- AWS Infrastructure -->
+      <div class="project-card fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=700&q=80" alt="AWS Cloud Infrastructure" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">Cloud / DevOps</div>
+          <div class="card-year">2026</div>
+        </div>
+        <div class="card-body">
+          <div class="card-stack">AWS · Terraform · GitHub Actions · Docker · CI/CD</div>
+          <h3 class="card-title">Production-Grade AWS Infrastructure Automation</h3>
+          <p class="card-desc">Designed and deployed production-grade cloud infrastructure on AWS using Terraform with IaC principles, full CI/CD pipelines, and containerised deployments with CloudWatch monitoring.</p>
+        </div>
+      </div>
+
+      <!-- IoT Smart Umbrella -->
+      <div class="project-card fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&q=80" alt="IoT Hardware" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">IoT · Hardware</div>
+          <div class="card-year">2024</div>
+        </div>
+        <div class="card-body">
+          <div class="card-badge">🏆 MSME Hackathon 2024 · ₹15L Prize Pool</div>
+          <h3 class="card-title">Smart Umbrella for Bikes & Cycles</h3>
+          <p class="card-desc">Selected for MSME Hackathon 2024. Integrated temperature, water & wind sensors for automated hands-free rain and sunlight protection on two-wheelers.</p>
+        </div>
+      </div>
+
+      <!-- Customer Segmentation -->
+      <div class="project-card fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=700&q=80" alt="Customer Segmentation Analytics" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">Analytics</div>
+          <div class="card-year">2024</div>
+        </div>
+        <div class="card-body">
+          <div class="card-stack">SQL · Python · Power BI</div>
+          <h3 class="card-title">Customer Segmentation Analytics</h3>
+          <p class="card-desc">End-to-end KPI analytics dashboard to identify high-value and churn-risk customer segments, enabling data-driven retention strategies for business stakeholders.</p>
+        </div>
+      </div>
+
+      <!-- AI Sales Forecasting -->
+      <div class="project-card fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9?w=700&q=80" alt="Sales Forecasting AI" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">AI Forecasting</div>
+          <div class="card-year">2023</div>
+        </div>
+        <div class="card-body">
+          <div class="card-stack">AI · Forecasting · Dashboard</div>
+          <h3 class="card-title">AI Sales Forecasting Dashboard</h3>
+          <p class="card-desc">AI-based sales forecasting system to support data-driven revenue planning with predictive models and interactive visual dashboards for quarterly projections.</p>
+        </div>
+      </div>
+
+      <!-- Web Scraper -->
+      <div class="project-card fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=700&q=80" alt="Web Scraping Python" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">Web Scraping</div>
+          <div class="card-year">2025</div>
+        </div>
+        <div class="card-body">
+          <div class="card-stack">Python · BeautifulSoup · Pandas</div>
+          <h3 class="card-title">eBay Web Scraper</h3>
+          <p class="card-desc">Python web scraper for eBay listings extracting titles, prices, ratings, and sold counts into structured, analysis-ready datasets for e-commerce market research.</p>
+        </div>
+      </div>
+
+      <!-- E-Commerce — wide -->
+      <div class="project-card card-wide fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80" alt="E-Commerce Website" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">Full Stack Web</div>
+          <div class="card-year">2022</div>
+        </div>
+        <div class="card-body">
+          <div class="card-stack">HTML · CSS · JavaScript · Django</div>
+          <h3 class="card-title">E-Commerce Website</h3>
+          <p class="card-desc">Dynamic shopping platform with user authentication, product catalog, shopping cart, and payment gateway integration. Certified by PACET. Built as a comprehensive full-stack application using the Django framework.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DS VISUAL SECTION -->
+  <section id="ds-visual">
+    <div class="ds-visual-inner">
+      <div class="ds-visual-text fade-up">
+        <div class="section-label" style="color:#7aabff;">Data Science</div>
+        <h2>Powered by<br/><em>real-world</em><br/>data science</h2>
+        <p>From exploratory data analysis to production ML deployments — every line of code is purpose-built to extract value from data and drive measurable outcomes.</p>
+      </div>
+      <div class="ds-img-row fade-up">
+        <div class="ds-img-card">
+          <img src="https://images.unsplash.com/photo-1527474305487-b87b222841cc?w=400&q=80" alt="Neural Network Deep Learning" loading="lazy"/>
+          <div class="ds-img-label">Deep Learning</div>
+        </div>
+        <div class="ds-img-card">
+          <img src="https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?w=400&q=80" alt="Data Visualization Charts" loading="lazy"/>
+          <div class="ds-img-label">Data Visualization</div>
+        </div>
+        <div class="ds-img-card">
+          <img src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481?w=400&q=80" alt="Predictive Analytics" loading="lazy"/>
+          <div class="ds-img-label">Predictive Analytics</div>
+        </div>
       </div>
     </div>
-
-    <!-- CARD 2 — AWS Infrastructure -->
-    <div class="project-card card-5 fade-up">
-      <div class="project-bg"></div>
-      <div class="card-art">
-        <svg width="100%" height="100%" viewBox="0 0 360 210" preserveAspectRatio="xMidYMid slice" style="top:0;left:0;">
-          <line x1="180" y1="55" x2="90" y2="110" stroke="#444" stroke-width="0.6" stroke-dasharray="4 3"/>
-          <line x1="180" y1="55" x2="180" y2="115" stroke="#444" stroke-width="0.6" stroke-dasharray="4 3"/>
-          <line x1="180" y1="55" x2="270" y2="110" stroke="#444" stroke-width="0.6" stroke-dasharray="4 3"/>
-          <line x1="90" y1="110" x2="60" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="90" y1="110" x2="120" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="270" y1="110" x2="240" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="270" y1="110" x2="300" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <line x1="180" y1="115" x2="180" y2="165" stroke="#333" stroke-width="0.5" stroke-dasharray="3 4"/>
-          <rect x="158" y="38" width="44" height="24" fill="#1e1e1e" stroke="#666" stroke-width="0.8" rx="2"/>
-          <text x="163" y="50" fill="#aaa" font-size="6.5" font-family="monospace">GitHub</text>
-          <text x="161" y="58" fill="#888" font-size="6" font-family="monospace">Actions</text>
-          <rect x="58" y="100" width="64" height="22" fill="#1a1a1a" stroke="#555" stroke-width="0.7" rx="2"/>
-          <text x="65" y="115" fill="#888" font-size="7" font-family="monospace">Terraform</text>
-          <rect x="148" y="105" width="64" height="22" fill="#1a1a1a" stroke="#555" stroke-width="0.7" rx="2"/>
-          <text x="162" y="120" fill="#888" font-size="7" font-family="monospace">Docker</text>
-          <rect x="238" y="100" width="64" height="22" fill="#1a1a1a" stroke="#777" stroke-width="0.8" rx="2"/>
-          <text x="248" y="115" fill="#999" font-size="7" font-family="monospace">AWS VPC</text>
-          <rect x="36" y="154" width="48" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="40" y="165" fill="#666" font-size="6.5" font-family="monospace">EC2 Auto</text>
-          <rect x="96" y="154" width="48" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="104" y="165" fill="#666" font-size="6.5" font-family="monospace">S3 Bucket</text>
-          <rect x="216" y="154" width="48" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="221" y="165" fill="#666" font-size="6.5" font-family="monospace">RDS / DB</text>
-          <rect x="276" y="154" width="48" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="281" y="165" fill="#666" font-size="6.5" font-family="monospace">Lambda</text>
-          <rect x="156" y="158" width="48" height="18" fill="#161616" stroke="#444" stroke-width="0.5" rx="2"/>
-          <text x="161" y="169" fill="#666" font-size="6.5" font-family="monospace">CloudWatch</text>
-          <text x="76" y="92" fill="#555" font-size="6.5" font-family="monospace">IaC</text>
-          <text x="188" y="92" fill="#555" font-size="6.5" font-family="monospace">Build</text>
-          <text x="248" y="92" fill="#555" font-size="6.5" font-family="monospace">Deploy</text>
-        </svg>
-      </div>
-      <div class="project-info">
-        <p class="project-cat">AWS · Terraform · GitHub Actions · Docker · CI/CD</p>
-        <h3 class="project-title">Production-Grade AWS Infrastructure Automation</h3>
-        <p class="project-desc">Designed and deployed production-grade cloud infrastructure on AWS using Terraform with IaC principles, full CI/CD pipelines, and containerised deployments.</p>
-        <span class="project-year">2026</span>
-      </div>
-    </div>
-
-    <!-- CARD 3 — IoT Smart Umbrella -->
-    <div class="project-card card-1 fade-up">
-      <div class="project-bg"></div>
-      <div class="card-art">
-        <svg width="100%" height="100%" viewBox="0 0 700 280" preserveAspectRatio="xMidYMid slice" style="top:0;left:0;">
-          <circle cx="580" cy="80" r="30" fill="none" stroke="#c8c0b4" stroke-width="0.8"/>
-          <circle cx="580" cy="80" r="55" fill="none" stroke="#c8c0b4" stroke-width="0.5"/>
-          <circle cx="580" cy="80" r="85" fill="none" stroke="#c8c0b4" stroke-width="0.3"/>
-          <circle cx="580" cy="80" r="120" fill="none" stroke="#c8c0b4" stroke-width="0.2"/>
-          <circle cx="580" cy="80" r="6" fill="#c8c0b4" opacity="0.9"/>
-          <rect x="60" y="60" width="8" height="120" fill="none" stroke="#aaa" stroke-width="0.6" rx="4"/>
-          <rect x="60" y="110" width="8" height="70" fill="#888" opacity="0.5" rx="4"/>
-          <text x="72" y="188" fill="#666" font-size="9" font-family="monospace">TEMP</text>
-          <path d="M 130 150 A 40 40 0 0 1 190 150" fill="none" stroke="#777" stroke-width="0.7"/>
-          <path d="M 125 150 A 45 45 0 0 1 195 150" fill="none" stroke="#555" stroke-width="0.4"/>
-          <path d="M 120 150 A 50 50 0 0 1 200 150" fill="none" stroke="#444" stroke-width="0.3"/>
-          <line x1="160" y1="150" x2="178" y2="125" stroke="#999" stroke-width="1.2"/>
-          <circle cx="160" cy="150" r="3" fill="#888"/>
-          <text x="149" y="172" fill="#666" font-size="9" font-family="monospace">WIND</text>
-          <circle cx="270" cy="80" r="2.5" fill="#aaa" opacity="0.7"/>
-          <circle cx="285" cy="96" r="2" fill="#888" opacity="0.6"/>
-          <circle cx="260" cy="100" r="1.8" fill="#999" opacity="0.5"/>
-          <circle cx="278" cy="112" r="2.2" fill="#aaa" opacity="0.6"/>
-          <circle cx="295" cy="82" r="1.5" fill="#777" opacity="0.5"/>
-          <circle cx="255" cy="118" r="1.8" fill="#888" opacity="0.4"/>
-          <text x="257" y="138" fill="#666" font-size="9" font-family="monospace">RAIN</text>
-          <line x1="310" y1="100" x2="550" y2="80" stroke="#555" stroke-width="0.5" stroke-dasharray="4 6"/>
-          <line x1="0" y1="200" x2="700" y2="200" stroke="#333" stroke-width="0.3"/>
-          <line x1="0" y1="220" x2="700" y2="220" stroke="#2a2a2a" stroke-width="0.2"/>
-        </svg>
-      </div>
-      <div class="project-info">
-        <div class="badge">IoT · MSME Hackathon 2024 · ₹15L</div>
-        <h3 class="project-title">Smart Umbrella for Bikes & Cycles</h3>
-        <p class="project-desc">Selected for MSME Hackathon 2024. Integrated temperature, water & wind sensors for automated hands-free rain and sunlight protection.</p>
-        <span class="project-year">2024</span>
-      </div>
-    </div>
-
-    <!-- CARD 4 — Customer Segmentation -->
-    <div class="project-card card-2 fade-up">
-      <div class="project-bg"></div>
-      <div class="card-art">
-        <svg width="100%" height="100%" viewBox="0 0 360 210" preserveAspectRatio="xMidYMid slice" style="top:0;left:0;">
-          <line x1="40" y1="170" x2="320" y2="170" stroke="#444" stroke-width="0.6"/>
-          <line x1="40" y1="20" x2="40" y2="170" stroke="#444" stroke-width="0.6"/>
-          <circle cx="240" cy="55" r="3.5" fill="#c8c0b4" opacity="0.9"/>
-          <circle cx="258" cy="42" r="2.5" fill="#c8c0b4" opacity="0.7"/>
-          <circle cx="252" cy="68" r="3" fill="#c8c0b4" opacity="0.8"/>
-          <circle cx="272" cy="50" r="2" fill="#c8c0b4" opacity="0.6"/>
-          <circle cx="244" cy="78" r="2.5" fill="#c8c0b4" opacity="0.7"/>
-          <ellipse cx="256" cy="55" rx="30" ry="25" fill="none" stroke="#c8c0b4" stroke-width="0.4" stroke-dasharray="3 4" opacity="0.5"/>
-          <circle cx="90" cy="130" r="3" fill="#777" opacity="0.8"/>
-          <circle cx="108" cy="120" r="2.5" fill="#777" opacity="0.7"/>
-          <circle cx="78" cy="118" r="2" fill="#777" opacity="0.6"/>
-          <circle cx="100" cy="142" r="3.5" fill="#777" opacity="0.9"/>
-          <ellipse cx="97" cy="130" rx="28" ry="20" fill="none" stroke="#777" stroke-width="0.4" stroke-dasharray="3 4" opacity="0.4"/>
-          <circle cx="170" cy="100" r="2.5" fill="#aaa" opacity="0.7"/>
-          <circle cx="185" cy="88" r="2" fill="#aaa" opacity="0.6"/>
-          <circle cx="162" cy="112" r="3" fill="#aaa" opacity="0.8"/>
-          <ellipse cx="178" cy="100" rx="24" ry="18" fill="none" stroke="#aaa" stroke-width="0.4" stroke-dasharray="3 4" opacity="0.35"/>
-          <text x="228" y="30" fill="#888" font-size="8" font-family="monospace">HIGH-VALUE</text>
-          <text x="55" y="115" fill="#666" font-size="8" font-family="monospace">CHURN-RISK</text>
-          <text x="148" y="78" fill="#777" font-size="8" font-family="monospace">MID-TIER</text>
-          <text x="42" y="185" fill="#555" font-size="7" font-family="monospace">SPEND →</text>
-        </svg>
-      </div>
-      <div class="project-info">
-        <p class="project-cat">SQL · Python · Power BI</p>
-        <h3 class="project-title">Customer Segmentation Analytics</h3>
-        <p class="project-desc">End-to-end KPI analytics dashboard to identify high-value and churn-risk customers, enabling data-driven retention strategies.</p>
-        <span class="project-year">2024</span>
-      </div>
-    </div>
-
-    <!-- CARD 5 — AI Sales Forecasting -->
-    <div class="project-card card-3 fade-up">
-      <div class="project-bg"></div>
-      <div class="card-art">
-        <svg width="100%" height="100%" viewBox="0 0 360 210" preserveAspectRatio="xMidYMid slice" style="top:0;left:0;">
-          <line x1="40" y1="40" x2="320" y2="40" stroke="#2a2a2a" stroke-width="0.4"/>
-          <line x1="40" y1="80" x2="320" y2="80" stroke="#2a2a2a" stroke-width="0.4"/>
-          <line x1="40" y1="120" x2="320" y2="120" stroke="#2a2a2a" stroke-width="0.4"/>
-          <line x1="40" y1="160" x2="320" y2="160" stroke="#333" stroke-width="0.6"/>
-          <polyline points="50,145 85,138 120,130 155,118 190,105" fill="none" stroke="#b0b0b0" stroke-width="1.5"/>
-          <circle cx="50" cy="145" r="2.5" fill="#b0b0b0"/>
-          <circle cx="85" cy="138" r="2.5" fill="#b0b0b0"/>
-          <circle cx="120" cy="130" r="2.5" fill="#b0b0b0"/>
-          <circle cx="155" cy="118" r="2.5" fill="#b0b0b0"/>
-          <circle cx="190" cy="105" r="3" fill="#c8c0b4"/>
-          <polyline points="190,105 225,88 260,72 295,55" fill="none" stroke="#c8c0b4" stroke-width="1.2" stroke-dasharray="5 4"/>
-          <polygon points="190,105 225,80 260,60 295,42 295,68 260,84 225,96 190,105" fill="#c8c0b4" opacity="0.06"/>
-          <circle cx="225" cy="88" r="2" fill="#c8c0b4" opacity="0.7"/>
-          <circle cx="260" cy="72" r="2" fill="#c8c0b4" opacity="0.7"/>
-          <circle cx="295" cy="55" r="2.5" fill="#c8c0b4" opacity="0.9"/>
-          <line x1="190" y1="35" x2="190" y2="165" stroke="#444" stroke-width="0.6" stroke-dasharray="2 3"/>
-          <text x="150" y="30" fill="#555" font-size="8" font-family="monospace">ACTUAL</text>
-          <text x="220" y="30" fill="#888" font-size="8" font-family="monospace">FORECAST</text>
-          <line x1="40" y1="160" x2="320" y2="160" stroke="#444" stroke-width="0.6"/>
-          <text x="42" y="175" fill="#444" font-size="7" font-family="monospace">Q1</text>
-          <text x="112" y="175" fill="#444" font-size="7" font-family="monospace">Q2</text>
-          <text x="182" y="175" fill="#444" font-size="7" font-family="monospace">Q3</text>
-          <text x="252" y="175" fill="#444" font-size="7" font-family="monospace">Q4</text>
-        </svg>
-      </div>
-      <div class="project-info">
-        <p class="project-cat">AI · Forecasting · Dashboard</p>
-        <h3 class="project-title">AI Sales Forecasting Dashboard</h3>
-        <p class="project-desc">AI-based sales forecasting system to support data-driven revenue planning with predictive models and interactive visual dashboards.</p>
-        <span class="project-year">2023</span>
-      </div>
-    </div>
-
-    <!-- CARD 6 — Web Scraper -->
-    <div class="project-card card-4 fade-up">
-      <div class="project-bg"></div>
-      <div class="card-art">
-        <svg width="100%" height="100%" viewBox="0 0 360 210" preserveAspectRatio="xMidYMid slice" style="top:0;left:0;">
-          <rect x="30" y="20" width="300" height="160" fill="none" stroke="#333" stroke-width="0.6" rx="3"/>
-          <rect x="30" y="20" width="300" height="22" fill="#1c1c1c" rx="3"/>
-          <circle cx="45" cy="31" r="4" fill="#333"/>
-          <circle cx="59" cy="31" r="4" fill="#333"/>
-          <circle cx="73" cy="31" r="4" fill="#333"/>
-          <rect x="90" y="25" width="200" height="12" fill="#252525" rx="2"/>
-          <text x="95" y="34" fill="#555" font-size="7" font-family="monospace">ebay.com/sch/i.html?_nkw=...</text>
-          <rect x="40" y="52" width="280" height="14" fill="#222" rx="1"/>
-          <text x="46" y="62" fill="#888" font-size="7.5" font-family="monospace">title</text>
-          <text x="140" y="62" fill="#888" font-size="7.5" font-family="monospace">price</text>
-          <text x="220" y="62" fill="#888" font-size="7.5" font-family="monospace">rating</text>
-          <text x="285" y="62" fill="#888" font-size="7.5" font-family="monospace">sold</text>
-          <rect x="40" y="68" width="280" height="12" fill="none" stroke="#2a2a2a" stroke-width="0.4"/>
-          <text x="46" y="77" fill="#666" font-size="7" font-family="monospace">Laptop Stand Pro</text>
-          <text x="140" y="77" fill="#777" font-size="7" font-family="monospace">$29.99</text>
-          <text x="220" y="77" fill="#666" font-size="7" font-family="monospace">4.8★</text>
-          <text x="285" y="77" fill="#666" font-size="7" font-family="monospace">1,420</text>
-          <rect x="40" y="82" width="280" height="12" fill="#1a1a1a"/>
-          <text x="46" y="91" fill="#666" font-size="7" font-family="monospace">USB Hub 7-Port</text>
-          <text x="140" y="91" fill="#777" font-size="7" font-family="monospace">$18.50</text>
-          <text x="220" y="91" fill="#666" font-size="7" font-family="monospace">4.6★</text>
-          <text x="285" y="91" fill="#666" font-size="7" font-family="monospace">892</text>
-          <rect x="40" y="96" width="280" height="12" fill="none" stroke="#2a2a2a" stroke-width="0.4"/>
-          <text x="46" y="105" fill="#666" font-size="7" font-family="monospace">Desk Mat XL</text>
-          <text x="140" y="105" fill="#777" font-size="7" font-family="monospace">$12.00</text>
-          <text x="220" y="105" fill="#666" font-size="7" font-family="monospace">4.9★</text>
-          <text x="285" y="105" fill="#666" font-size="7" font-family="monospace">3,100</text>
-          <rect x="40" y="148" width="280" height="4" fill="#1c1c1c" rx="2"/>
-          <rect x="40" y="148" width="196" height="4" fill="#555" rx="2"/>
-          <text x="46" y="162" fill="#555" font-size="7.5" font-family="monospace">Scraping... 196 / 280 records</text>
-          <circle cx="300" cy="155" r="4" fill="none" stroke="#666" stroke-width="1"/>
-          <path d="M300 151 A4 4 0 0 1 304 155" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="project-info">
-        <p class="project-cat">Python · BeautifulSoup · Pandas</p>
-        <h3 class="project-title">eBay Web Scraper</h3>
-        <p class="project-desc">Python web scraper for eBay listings extracting titles, prices, ratings, and sold counts into structured datasets.</p>
-        <span class="project-year">2025</span>
-      </div>
-    </div>
-
-    <!-- CARD 7 — E-Commerce (wide) -->
-    <div class="project-card card-6 card-wide fade-up">
-      <div class="project-bg"></div>
-      <div class="card-art">
-        <svg width="100%" height="100%" viewBox="0 0 900 360" preserveAspectRatio="xMidYMid slice" style="top:0;left:0;">
-          <rect x="0" y="0" width="900" height="38" fill="#161616"/>
-          <rect x="30" y="13" width="70" height="12" fill="#2a2a2a" rx="2"/>
-          <rect x="350" y="11" width="200" height="16" fill="#222" rx="8"/>
-          <rect x="820" y="14" width="20" height="10" fill="#2a2a2a" rx="1"/>
-          <rect x="848" y="14" width="20" height="10" fill="#2a2a2a" rx="1"/>
-          <rect x="30" y="52" width="840" height="90" fill="#1a1a1a" rx="2" stroke="#2a2a2a" stroke-width="0.5"/>
-          <rect x="60" y="68" width="160" height="14" fill="#2e2e2e" rx="2"/>
-          <rect x="60" y="88" width="220" height="10" fill="#272727" rx="2"/>
-          <rect x="60" y="104" width="90" height="22" fill="#333" rx="2"/>
-          <rect x="640" y="58" width="200" height="78" fill="#222" rx="2"/>
-          <rect x="30" y="158" width="185" height="120" fill="#1a1a1a" rx="2" stroke="#2a2a2a" stroke-width="0.4"/>
-          <rect x="40" y="166" width="165" height="70" fill="#222" rx="1"/>
-          <rect x="40" y="244" width="100" height="8" fill="#2a2a2a" rx="1"/>
-          <rect x="40" y="258" width="60" height="8" fill="#2e2e2e" rx="1"/>
-          <rect x="148" y="255" width="52" height="14" fill="#333" rx="1"/>
-          <rect x="228" y="158" width="185" height="120" fill="#1a1a1a" rx="2" stroke="#2a2a2a" stroke-width="0.4"/>
-          <rect x="238" y="166" width="165" height="70" fill="#222" rx="1"/>
-          <rect x="238" y="244" width="115" height="8" fill="#2a2a2a" rx="1"/>
-          <rect x="238" y="258" width="60" height="8" fill="#2e2e2e" rx="1"/>
-          <rect x="346" y="255" width="52" height="14" fill="#333" rx="1"/>
-          <rect x="426" y="158" width="185" height="120" fill="#1a1a1a" rx="2" stroke="#2a2a2a" stroke-width="0.4"/>
-          <rect x="436" y="166" width="165" height="70" fill="#222" rx="1"/>
-          <rect x="436" y="244" width="90" height="8" fill="#2a2a2a" rx="1"/>
-          <rect x="436" y="258" width="60" height="8" fill="#2e2e2e" rx="1"/>
-          <rect x="544" y="255" width="52" height="14" fill="#333" rx="1"/>
-          <rect x="624" y="158" width="185" height="120" fill="#1a1a1a" rx="2" stroke="#2a2a2a" stroke-width="0.4"/>
-          <rect x="634" y="166" width="165" height="70" fill="#222" rx="1"/>
-          <rect x="634" y="244" width="130" height="8" fill="#2a2a2a" rx="1"/>
-          <rect x="634" y="258" width="60" height="8" fill="#2e2e2e" rx="1"/>
-          <rect x="742" y="255" width="52" height="14" fill="#333" rx="1"/>
-          <rect x="820" y="52" width="60" height="230" fill="#111" stroke="#2a2a2a" stroke-width="0.4" rx="2"/>
-          <rect x="830" y="62" width="40" height="40" fill="#1c1c1c" rx="1"/>
-          <rect x="830" y="108" width="40" height="8" fill="#222" rx="1"/>
-          <rect x="830" y="120" width="40" height="8" fill="#1e1e1e" rx="1"/>
-          <rect x="830" y="150" width="40" height="14" fill="#2a2a2a" rx="1"/>
-          <text x="35" y="310" fill="#555" font-size="9" font-family="monospace">Products</text>
-          <text x="380" y="310" fill="#444" font-size="9" font-family="monospace">Django Backend · Auth · Cart · Payment</text>
-          <text x="825" y="295" fill="#444" font-size="7" font-family="monospace">Cart</text>
-        </svg>
-      </div>
-      <div class="project-info">
-        <p class="project-cat">HTML · CSS · JS · Django</p>
-        <h3 class="project-title">E-Commerce Website</h3>
-        <p class="project-desc">Dynamic shopping platform with user authentication, product catalog, shopping cart, and payment gateway integration. Certified by PACET.</p>
-        <span class="project-year">2022</span>
-      </div>
-    </div>
-
-  </div><!-- /projects-grid -->
-</section>
+  </section>
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <div class="section-header">
-      <h2>Work Experience</h2>
-      <small>Internships</small>
-    </div>
-    <div class="exp-list">
-      <div class="exp-item fade-up">
-        <span class="exp-period">2024</span>
+    <div style="max-width:1200px; margin:0 auto;">
+      <div class="section-header-row fade-up">
         <div>
-          <h3 class="exp-role">Machine Learning Intern</h3>
-          <p class="exp-company">Crescent Infotech</p>
-          <p class="exp-desc">Developed and trained ML models using Python, TensorFlow, and Scikit-Learn. Evaluated performance using accuracy, precision-recall, and F1-score metrics.</p>
+          <div class="section-label">03 / Experience</div>
+          <h2 class="section-title">Work Experience</h2>
         </div>
-        <span class="exp-location">Erode, IN</span>
+        <span class="sh-meta">Internships</span>
       </div>
-      <div class="exp-item fade-up">
-        <span class="exp-period">2024</span>
-        <div>
-          <h3 class="exp-role">Python with Data Science Intern</h3>
-          <p class="exp-company">Live Stream Technologies</p>
-          <p class="exp-desc">Collected, cleaned, and preprocessed large datasets. Built ML models and created Power BI / Tableau dashboards to present findings to stakeholders.</p>
+      <div class="exp-list">
+        <div class="exp-item fade-up">
+          <span class="exp-period">2024</span>
+          <div>
+            <h3 class="exp-role">Machine Learning Intern</h3>
+            <p class="exp-company">Crescent Infotech</p>
+            <p class="exp-desc">Developed and trained ML models using Python, TensorFlow, and Scikit-Learn. Evaluated performance using accuracy, precision-recall, and F1-score metrics across classification and regression tasks.</p>
+          </div>
+          <span class="exp-location">Erode, IN</span>
         </div>
-        <span class="exp-location">Coimbatore, IN</span>
-      </div>
-      <div class="exp-item fade-up">
-        <span class="exp-period">2024</span>
-        <div>
-          <h3 class="exp-role">Data Analyst Intern</h3>
-          <p class="exp-company">Elevate Labs</p>
-          <p class="exp-desc">Performed data analysis, built dashboards, and generated actionable insights to support business decision-making using Python and visualization tools.</p>
+        <div class="exp-item fade-up">
+          <span class="exp-period">2024</span>
+          <div>
+            <h3 class="exp-role">Python with Data Science Intern</h3>
+            <p class="exp-company">Live Stream Technologies</p>
+            <p class="exp-desc">Collected, cleaned, and preprocessed large datasets. Built ML models and created Power BI / Tableau dashboards to present insights and findings to business stakeholders.</p>
+          </div>
+          <span class="exp-location">Coimbatore, IN</span>
         </div>
-        <span class="exp-location">Bangalore, IN</span>
+        <div class="exp-item fade-up">
+          <span class="exp-period">2024</span>
+          <div>
+            <h3 class="exp-role">Data Analyst Intern</h3>
+            <p class="exp-company">Elevate Labs</p>
+            <p class="exp-desc">Performed data analysis, built interactive dashboards, and generated actionable business insights to support decision-making using Python and visualization tools.</p>
+          </div>
+          <span class="exp-location">Bangalore, IN</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- SKILLS -->
   <section id="skills">
-    <div class="section-header">
-      <h2>Capabilities</h2>
-      <small>Tech Stack</small>
+    <div class="section-header-row fade-up">
+      <div>
+        <div class="section-label">04 / Skills</div>
+        <h2 class="section-title">Capabilities</h2>
+      </div>
+      <span class="sh-meta">Tech Stack</span>
     </div>
     <div class="skills-grid">
       <div class="skill-block fade-up">
         <span class="skill-num">01</span>
-        <div class="skill-icon">◈</div>
+        <div class="skill-icon">📊</div>
         <h3 class="skill-name">Data Analytics</h3>
-        <p class="skill-tools">Python · Pandas · NumPy<br/>Excel · Statistical Analysis<br/>Predictive Modeling</p>
+        <div class="skill-tools">
+          <span>Python</span><span>Pandas</span><span>NumPy</span>
+          <span>Excel</span><span>Statistics</span><span>Predictive Modeling</span>
+        </div>
       </div>
       <div class="skill-block fade-up">
         <span class="skill-num">02</span>
-        <div class="skill-icon">⬡</div>
+        <div class="skill-icon">📈</div>
         <h3 class="skill-name">Visualization</h3>
-        <p class="skill-tools">Power BI · Tableau<br/>Matplotlib · Seaborn · Joblib<br/>Dashboard Design</p>
+        <div class="skill-tools">
+          <span>Power BI</span><span>Tableau</span>
+          <span>Matplotlib</span><span>Seaborn</span><span>Dashboard Design</span>
+        </div>
       </div>
       <div class="skill-block fade-up">
         <span class="skill-num">03</span>
-        <div class="skill-icon">◯</div>
+        <div class="skill-icon">🤖</div>
         <h3 class="skill-name">Machine Learning</h3>
-        <p class="skill-tools">Scikit-learn · TensorFlow<br/>Deep Learning · Seaborn<br/>Model Evaluation</p>
+        <div class="skill-tools">
+          <span>Scikit-learn</span><span>TensorFlow</span>
+          <span>Deep Learning</span><span>Model Evaluation</span><span>FastAPI</span>
+        </div>
       </div>
       <div class="skill-block fade-up">
         <span class="skill-num">04</span>
-        <div class="skill-icon">▲</div>
-        <h3 class="skill-name">Cloud and Deployment</h3>
-        <p class="skill-tools">AWS · Terraform · REST APIs<br/>Git · VS Code<br/>GitHub</p>
+        <div class="skill-icon">☁️</div>
+        <h3 class="skill-name">Cloud & Deployment</h3>
+        <div class="skill-tools">
+          <span>AWS</span><span>Terraform</span><span>Docker</span>
+          <span>REST APIs</span><span>Git</span><span>GitHub</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- CERTIFICATIONS -->
   <section id="certs">
-    <div class="section-header">
-      <h2>Certifications</h2>
-      <small>Credentials</small>
+    <div class="section-header-row fade-up">
+      <div>
+        <div class="section-label">05 / Certifications</div>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+      <span class="sh-meta">Credentials</span>
     </div>
     <div class="cert-row">
-      <div class="cert-pill">Python Basics & Intermediate — Udemy</div>
-      <div class="cert-pill">Data Analytics — NoviTech, Coimbatore</div>
-      <div class="cert-pill">Prompt Engineering — Koenig Step Forward</div>
-      <div class="cert-pill">AI Workshop — IIT Madras Research Park</div>
-      <div class="cert-pill">Data Analytics Intern — Elevate Labs</div>
+      <div class="cert-pill"><span class="cert-icon">🎓</span>Python Basics & Intermediate — Udemy</div>
+      <div class="cert-pill"><span class="cert-icon">📊</span>Data Analytics — NoviTech, Coimbatore</div>
+      <div class="cert-pill"><span class="cert-icon">🤖</span>Prompt Engineering — Koenig Step Forward</div>
+      <div class="cert-pill"><span class="cert-icon">🔬</span>AI Workshop — IIT Madras Research Park</div>
+      <div class="cert-pill"><span class="cert-icon">📈</span>Data Analytics Intern — Elevate Labs</div>
     </div>
   </section>
 
   <!-- EDUCATION -->
   <section id="education">
-    <div class="section-header">
-      <h2>Education</h2>
-      <small>Academic Background</small>
+    <div class="section-header-row fade-up">
+      <div>
+        <div class="section-label">06 / Education</div>
+        <h2 class="section-title">Education</h2>
+      </div>
+      <span class="sh-meta">Academic Background</span>
     </div>
     <div class="edu-list">
       <div class="edu-item fade-up">
@@ -708,7 +969,7 @@
           <p class="edu-degree">B.Tech — Artificial Intelligence & Data Science</p>
           <p class="edu-school">P.A. College of Engineering and Technology, Pollachi</p>
         </div>
-        <div class="edu-grade">7.35</div>
+        <div class="edu-grade">7.42</div>
       </div>
       <div class="edu-item fade-up">
         <span class="edu-year">2022</span>
@@ -731,7 +992,8 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="contact-left">
+    <div class="contact-left fade-up">
+      <div class="section-label">07 / Contact</div>
       <h2>Let's work<br/>on something<br/><em>great</em></h2>
       <div class="contact-detail">
         <div class="contact-item"><label>Email</label><a href="mailto:sivavpy2005@gmail.com">sivavpy2005@gmail.com</a></div>
@@ -740,7 +1002,7 @@
         <div class="contact-item"><label>Availability</label><span>Open to internships & full-time roles</span></div>
       </div>
     </div>
-    <div>
+    <div class="fade-up">
       <div class="contact-form">
         <div class="form-field">
           <label>Your Name</label>
@@ -757,14 +1019,14 @@
           <textarea id="cf-message" placeholder="Tell me about the opportunity..."></textarea>
           <span class="field-err" id="err-msg"></span>
         </div>
-        <button class="form-submit" id="send-btn" onclick="sendMail()">Send Message</button>
+        <button class="form-submit" id="send-btn" onclick="sendMail()">Send Message →</button>
         <span class="form-status" id="form-status"></span>
       </div>
     </div>
   </section>
 
   <footer>
-    <small>© 2026 — Siva S. All rights reserved.</small>
+    <small>Created by Siva S.</small>
     <div class="social-links">
       <a href="https://www.linkedin.com/in/siva-s-400145323" target="_blank">LinkedIn</a>
       <a href="https://github.com/Siva-S-05" target="_blank">GitHub</a>
@@ -773,26 +1035,36 @@
   </footer>
 
   <script>
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursor-ring');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove', e => {
-      mx=e.clientX; my=e.clientY;
-      cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
+    // Mobile nav
+    function toggleMenu() {
+      const d = document.getElementById('nav-drawer');
+      d.classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('nav-drawer').classList.remove('open');
+    }
+
+    // Scroll-spy
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+      navLinks.forEach(a => {
+        const href = a.getAttribute('href');
+        a.style.color = (href === '#' + cur && !a.classList.contains('nav-cta')) ? 'var(--ink)' : '';
+      });
     });
-    (function animRing(){
-      rx+=(mx-rx-18)*0.12; ry+=(my-ry-18)*0.12;
-      ring.style.transform=`translate(${rx}px,${ry}px)`;
-      requestAnimationFrame(animRing);
-    })();
-    document.querySelectorAll('a,button').forEach(el=>{
-      el.addEventListener('mouseenter',()=>{ ring.style.borderColor='var(--white)'; });
-      el.addEventListener('mouseleave',()=>{ ring.style.borderColor='var(--grey)'; });
-    });
-    const obs=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
-    },{threshold:0.12});
-    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+    // Fade-up observer
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    // Contact form
     function sendMail() {
       const name    = document.getElementById('cf-name').value.trim();
       const email   = document.getElementById('cf-email').value.trim();
@@ -803,57 +1075,34 @@
       const status  = document.getElementById('form-status');
       const btn     = document.getElementById('send-btn');
 
-      errName.textContent = '';
-      errMail.textContent = '';
-      errMsg.textContent  = '';
-      status.textContent  = '';
-      status.className    = 'form-status';
+      errName.textContent = errMail.textContent = errMsg.textContent = status.textContent = '';
+      status.style.color = '';
 
       let valid = true;
       if (!name)    { errName.textContent = 'Name is required.'; valid = false; }
       if (!email)   { errMail.textContent = 'Email is required.'; valid = false; }
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-                    { errMail.textContent = 'Enter a valid email address.'; valid = false; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errMail.textContent = 'Enter a valid email address.'; valid = false; }
       if (!message) { errMsg.textContent  = 'Message cannot be empty.'; valid = false; }
       if (!valid) return;
 
-      var subject = encodeURIComponent('Portfolio Contact from ' + name);
-      var body    = encodeURIComponent(
-        'Hi Siva,\n\nName    : ' + name +
-        '\nEmail   : ' + email +
-        '\n\nMessage :\n' + message +
-        '\n\n--- via siva-portfolio'
-      );
-      var gmailURL = 'https://mail.google.com/mail/?view=cm&to=sivavpy2005@gmail.com&su=' + subject + '&body=' + body;
+      const subject = encodeURIComponent('Portfolio Contact from ' + name);
+      const body    = encodeURIComponent('Hi Siva,\n\nName    : ' + name + '\nEmail   : ' + email + '\n\nMessage :\n' + message + '\n\n--- via siva-portfolio');
+      const gmailURL = 'https://mail.google.com/mail/?view=cm&to=sivavpy2005@gmail.com&su=' + subject + '&body=' + body;
 
-      btn.disabled = true;
-      btn.textContent = 'Opening Gmail...';
+      btn.disabled = true; btn.textContent = 'Opening Gmail...';
+      const tab = window.open(gmailURL, '_blank');
 
-      var gmailTab = window.open(gmailURL, '_blank');
-
-      setTimeout(function() {
-        btn.disabled = false;
-        btn.textContent = 'Send Message';
-        if (!gmailTab || gmailTab.closed || typeof gmailTab.closed === 'undefined') {
-          status.innerHTML = '<span style="color:#c0756a;">Popup was blocked. Please allow popups for this page and try again.</span>';
+      setTimeout(() => {
+        btn.disabled = false; btn.textContent = 'Send Message →';
+        if (!tab || tab.closed || typeof tab.closed === 'undefined') {
+          status.style.color = '#c0392b';
+          status.textContent = 'Popup was blocked. Please allow popups and try again.';
         } else {
-          status.innerHTML =
-            '<span style="color:#7aab8a;">Gmail compose opened in a new tab — just hit Send inside Gmail!</span>' +
-            '<br><span style="color:#7a7a7a;font-size:0.63rem;margin-top:8px;display:block;line-height:1.7;">' +
-            "Don't have Gmail? You'll need a Gmail account to use this button." +
-            '<br>Alternatively, email directly at ' +
-            '<a href="mailto:sivavpy2005@gmail.com" style="color:#b0b0b0;text-decoration:underline;text-underline-offset:3px;">sivavpy2005@gmail.com</a></span>';
+          status.style.color = '#0f7b6c';
+          status.innerHTML = 'Gmail compose opened — just hit Send inside Gmail! Alternatively email <a href="mailto:sivavpy2005@gmail.com" style="color:var(--accent)">sivavpy2005@gmail.com</a> directly.';
         }
       }, 900);
     }
-
-    const sections=document.querySelectorAll('section[id]');
-    const navLinks=document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll',()=>{
-      let cur='';
-      sections.forEach(s=>{ if(window.scrollY>=s.offsetTop-200) cur=s.id; });
-      navLinks.forEach(a=>{ a.style.color=a.getAttribute('href')==='#'+cur?'var(--white)':''; });
-    });
   </script>
 </body>
 </html>
