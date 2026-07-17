@@ -135,6 +135,20 @@
       transition: border-color 0.25s, background 0.25s;
     }
     .btn-outline:hover { border-color: var(--ink); background: var(--off-white); }
+    .btn-icon {
+      padding: 14px 20px;
+    }
+    .btn-social {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 46px; height: 46px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-dk);
+      color: var(--dark-grey);
+      text-decoration: none;
+      transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-social:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); transform: translateY(-1px); }
     .hero-stats {
       display: flex; gap: 32px; margin-top: 48px;
       padding-top: 32px; border-top: 1px solid var(--border);
@@ -440,7 +454,7 @@
     #contact {
       padding: 100px 48px 80px;
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
+      gap: 80px; align-items: center;
       border-top: 1px solid var(--border);
       background: var(--white);
     }
@@ -458,6 +472,28 @@
     .contact-item label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); font-weight: 600; }
     .contact-item a, .contact-item span { font-size: 0.9rem; color: var(--ink); text-decoration: none; transition: color 0.2s; }
     .contact-item a:hover { color: var(--accent); }
+    .contact-actions {
+      display: flex; align-items: center; gap: 16px;
+      margin-top: 32px; flex-wrap: wrap;
+    }
+    .btn-resume {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--ink); color: #fff;
+      padding: 12px 24px; border-radius: 6px;
+      font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-resume:hover { background: var(--accent); transform: translateY(-1px); }
+    .contact-socials { display: flex; gap: 16px; align-items: center; }
+    .contact-socials a {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--grey); text-decoration: none; font-weight: 600;
+      border-bottom: 1.5px solid var(--border-dk);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .contact-socials a:hover { color: var(--accent); border-color: var(--accent); }
     .contact-form { display: flex; flex-direction: column; gap: 20px; }
     .form-field { display: flex; flex-direction: column; gap: 6px; }
     .form-field label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); font-weight: 600; }
@@ -616,6 +652,16 @@
       <div class="hero-cta">
         <a class="btn-primary" href="#work">View Projects ↓</a>
         <a class="btn-outline" href="#contact">Get in Touch →</a>
+        <a class="btn-outline btn-icon" href="Siva_Sankaravel_Resume.pdf" download title="Download Resume">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Resume
+        </a>
+        <a class="btn-social" href="https://www.linkedin.com/in/siva-s-400145323" target="_blank" title="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a class="btn-social" href="https://github.com/Siva-S-05" target="_blank" title="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
       </div>
       <div class="hero-stats">
         <div class="hstat"><div class="hstat-num">3+</div><div class="hstat-label">Internships</div></div>
@@ -1038,10 +1084,7 @@
 
   <footer>
     <small>Created by Siva Sankaravel</small>
-    <div class="social-links">
-      <a href="https://www.linkedin.com/in/siva-s-400145323" target="_blank">LinkedIn</a>
-      <a href="https://github.com/Siva-S-05" target="_blank">GitHub</a>
-    </div>
+    <small style="color:var(--mid-grey);">© 2026 · Chennai, Tamil Nadu, India</small>
   </footer>
 
   <script>
