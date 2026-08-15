@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Siva S — Data Science, Analytics & Machine Learning</title>
+  <title>Siva S — AI & Data Science · Python Automation · ETL Pipelines</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -135,20 +135,6 @@
       transition: border-color 0.25s, background 0.25s;
     }
     .btn-outline:hover { border-color: var(--ink); background: var(--off-white); }
-    .btn-icon {
-      padding: 14px 20px;
-    }
-    .btn-social {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 46px; height: 46px;
-      border-radius: 6px;
-      border: 1.5px solid var(--border-dk);
-      color: var(--dark-grey);
-      text-decoration: none;
-      transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.2s;
-      flex-shrink: 0;
-    }
-    .btn-social:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); transform: translateY(-1px); }
     .hero-stats {
       display: flex; gap: 32px; margin-top: 48px;
       padding-top: 32px; border-top: 1px solid var(--border);
@@ -454,7 +440,7 @@
     #contact {
       padding: 100px 48px 80px;
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+      gap: 80px; align-items: start;
       border-top: 1px solid var(--border);
       background: var(--white);
     }
@@ -472,28 +458,6 @@
     .contact-item label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); font-weight: 600; }
     .contact-item a, .contact-item span { font-size: 0.9rem; color: var(--ink); text-decoration: none; transition: color 0.2s; }
     .contact-item a:hover { color: var(--accent); }
-    .contact-actions {
-      display: flex; align-items: center; gap: 16px;
-      margin-top: 32px; flex-wrap: wrap;
-    }
-    .btn-resume {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--ink); color: #fff;
-      padding: 12px 24px; border-radius: 6px;
-      font-size: 0.82rem; font-weight: 600;
-      text-decoration: none; letter-spacing: 0.04em;
-      transition: background 0.25s, transform 0.2s;
-    }
-    .btn-resume:hover { background: var(--accent); transform: translateY(-1px); }
-    .contact-socials { display: flex; gap: 16px; align-items: center; }
-    .contact-socials a {
-      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--grey); text-decoration: none; font-weight: 600;
-      border-bottom: 1.5px solid var(--border-dk);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .contact-socials a:hover { color: var(--accent); border-color: var(--accent); }
     .contact-form { display: flex; flex-direction: column; gap: 20px; }
     .form-field { display: flex; flex-direction: column; gap: 6px; }
     .form-field label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); font-weight: 600; }
@@ -548,6 +512,79 @@
     .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── CURRENT BADGE ── */
+    .badge-current {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #e6f9f3; border: 1px solid #a3e0c8;
+      padding: 3px 10px; border-radius: 12px;
+      font-size: 0.68rem; font-weight: 600;
+      color: #0a6b4c; letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .badge-current::before { content: '●'; font-size: 0.45rem; animation: pulse 2s ease infinite; }
+
+    /* ── PIPELINE DETAIL ── */
+    .pipeline-detail {
+      margin-top: 14px;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .pipeline-detail h4 {
+      font-size: 0.82rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 8px; letter-spacing: 0.02em;
+    }
+    .pipeline-detail ul {
+      list-style: none; display: flex; flex-direction: column; gap: 5px;
+    }
+    .pipeline-detail ul li {
+      font-size: 0.78rem; color: var(--dark-grey); line-height: 1.6;
+      padding-left: 14px; position: relative;
+    }
+    .pipeline-detail ul li::before { content: '–'; position: absolute; left: 0; color: var(--accent); }
+    .pipeline-stack {
+      margin-top: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; color: var(--grey);
+      background: var(--lt-grey);
+      padding: 5px 10px; border-radius: 4px;
+    }
+
+    /* ── CO-CURRICULAR ── */
+    #cocurricular { padding: 80px 48px; border-top: 1px solid var(--border); background: var(--off-white); }
+    .cocurr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 0; }
+    .cocurr-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 24px 20px;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .cocurr-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 24px rgba(26,86,219,0.08);
+      transform: translateY(-2px);
+    }
+    .cocurr-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .cocurr-role {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+    }
+    .cocurr-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 600; color: var(--ink);
+      line-height: 1.3; margin-bottom: 4px;
+    }
+    .cocurr-org { font-size: 0.78rem; color: var(--grey); }
+
+    @media (max-width: 960px) {
+      #cocurricular { padding: 60px 24px; }
+      .cocurr-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .cocurr-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── MOBILE NAV DRAWER ── */
     .nav-drawer {
       display: none; position: fixed; top: 64px; left: 0; right: 0;
@@ -585,7 +622,7 @@
       .exp-location { text-align: left; }
 
       #skills { padding: 72px 24px; }
-      .skills-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .skills-grid { grid-template-columns: 1fr 1fr !important; gap: 14px; }
 
       #certs, #education { padding: 60px 24px; }
       .edu-item { grid-template-columns: 90px 1fr; }
@@ -619,7 +656,7 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#">Siva<span> </span>Sankaravel</a>
+    <a class="nav-logo" href="#">Siva<span>.</span></a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#work">Projects</a>
@@ -637,34 +674,25 @@
     <a href="#experience" onclick="closeMenu()">Experience</a>
     <a href="#skills" onclick="closeMenu()">Skills</a>
     <a href="#certs" onclick="closeMenu()">Certifications</a>
+    <a href="#cocurricular" onclick="closeMenu()">Activities</a>
     <a href="#contact" onclick="closeMenu()">Contact</a>
   </div>
 
   <!-- HERO -->
   <section id="hero">
     <div class="hero-left">
-      <div class="hero-badge">Open to Opportunities — 2026</div>
+      <div class="hero-badge">Currently @ MercuryMinds Technologies, Chennai</div>
       <h1>Data Science,<br/><em>Analytics &</em><br/>Machine Learning</h1>
       <p class="hero-sub">
-        Turning raw data into actionable intelligence. Specializing in predictive modeling,
-        data visualization, and end-to-end ML pipelines — based in Tamil Nadu, India.
+        AI & Data Science graduate building Python automation systems, ETL pipelines, ML applications,
+        and REST API integrations. Passionate about end-to-end data-driven solutions — based in Tamil Nadu, India.
       </p>
       <div class="hero-cta">
         <a class="btn-primary" href="#work">View Projects ↓</a>
         <a class="btn-outline" href="#contact">Get in Touch →</a>
-        <a class="btn-outline btn-icon" href="Siva_Sankaravel_Resume.pdf" download title="Download Resume">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Resume
-        </a>
-        <a class="btn-social" href="https://www.linkedin.com/in/siva-sankaravel-400145323" target="_blank" title="LinkedIn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a class="btn-social" href="https://github.com/Siva-S-05" target="_blank" title="GitHub">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-        </a>
       </div>
       <div class="hero-stats">
-        <div class="hstat"><div class="hstat-num">3+</div><div class="hstat-label">Internships</div></div>
+        <div class="hstat"><div class="hstat-num">2+</div><div class="hstat-label">Internships</div></div>
         <div class="hstat"><div class="hstat-num">7+</div><div class="hstat-label">Projects</div></div>
         <div class="hstat"><div class="hstat-num">7.42</div><div class="hstat-label">CGPA</div></div>
         <div class="hstat"><div class="hstat-num">5+</div><div class="hstat-label">Certifications</div></div>
@@ -674,15 +702,15 @@
     <div class="hero-right fade-up">
       <div class="hero-img">
         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Data Science Dashboard" loading="lazy"/>
-        <div class="hero-img-label">Data Science</div>
-      </div>
-      <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&q=80" alt="Machine Learning" loading="lazy"/>
         <div class="hero-img-label">Data Analytics</div>
       </div>
       <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&q=80" alt="Machine Learning" loading="lazy"/>
+        <div class="hero-img-label">Machine Learning</div>
+      </div>
+      <div class="hero-img">
         <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=400&q=80" alt="Python Data Science" loading="lazy"/>
-        <div class="hero-img-label">Python & ML</div>
+        <div class="hero-img-label">Python & AI</div>
       </div>
     </div>
   </section>
@@ -693,31 +721,35 @@
       <span>Python</span><span class="dot">·</span>
       <span>Machine Learning</span><span class="dot">·</span>
       <span>Power BI</span><span class="dot">·</span>
-      <span>Data Analytics</span><span class="dot">·</span>
+      <span>ETL Pipelines</span><span class="dot">·</span>
       <span>TensorFlow</span><span class="dot">·</span>
       <span>MySQL</span><span class="dot">·</span>
       <span>Tableau</span><span class="dot">·</span>
       <span>Scikit-learn</span><span class="dot">·</span>
       <span>AWS</span><span class="dot">·</span>
-      <span>Pandas</span><span class="dot">·</span>
+      <span>Selenium</span><span class="dot">·</span>
       <span>Playwright</span><span class="dot">·</span>
-      <span>Flask</span><span class="dot">·</span>
+      <span>Claude AI</span><span class="dot">·</span>
       <span>FastAPI</span><span class="dot">·</span>
-      <span>Postman</span><span class="dot">·</span>
+      <span>Pandas</span><span class="dot">·</span>
+      <span>LLM Integration</span><span class="dot">·</span>
+      <span>Prompt Engineering</span><span class="dot">·</span>
       <span>Python</span><span class="dot">·</span>
       <span>Machine Learning</span><span class="dot">·</span>
       <span>Power BI</span><span class="dot">·</span>
-      <span>Data Analytics</span><span class="dot">·</span>
+      <span>ETL Pipelines</span><span class="dot">·</span>
       <span>TensorFlow</span><span class="dot">·</span>
       <span>MySQL</span><span class="dot">·</span>
       <span>Tableau</span><span class="dot">·</span>
       <span>Scikit-learn</span><span class="dot">·</span>
       <span>AWS</span><span class="dot">·</span>
-      <span>Pandas</span><span class="dot">·</span>
+      <span>Selenium</span><span class="dot">·</span>
       <span>Playwright</span><span class="dot">·</span>
-      <span>Flask</span><span class="dot">·</span>
+      <span>Claude AI</span><span class="dot">·</span>
       <span>FastAPI</span><span class="dot">·</span>
-      <span>Postman</span><span class="dot">·</span>
+      <span>Pandas</span><span class="dot">·</span>
+      <span>LLM Integration</span><span class="dot">·</span>
+      <span>Prompt Engineering</span><span class="dot">·</span>
     </div>
   </div>
 
@@ -727,12 +759,13 @@
       <div class="about-text fade-up">
         <div class="section-label">01 / About</div>
         <h2 class="section-title" style="margin-bottom:24px;">Turning data into<br/><em>insight</em></h2>
-        <p>I'm Siva S, an Artificial Intelligence and Data Science graduate(2026) passionate about Data Science, Machine Learning, Data Analytics, and Cloud technologies. I enjoy transforming raw data into actionable insights and building scalable AI-driven solutions for real-world problems.</p>
-        <p>With hands-on experience in Python, SQL, Power BI, Tableau, Data Sceince, and Machine Learning, I have worked on projects involving predictive analytics, customer churn prediction, sales forecasting, customer segmentation, and cloud infrastructure automation. I have also completed internships focused on data analytics, dashboard development, and machine learning applications.</p>
-        <p>My interests include predictive modeling, Data Science, Data Analytics, and end-to-end AI solutions that combine analytics, automation, and scalable infrastructure.</p>
+        <p>I'm Siva S, a B.Tech student in Artificial Intelligence and Data Science at P.A. College of Engineering and Technology, Pollachi (2026), currently working as a Data Analytics Intern at MercuryMinds Technologies, Chennai.</p>
+        <p>I have hands-on experience building Python automation systems, ETL pipelines, ML applications, and REST API integrations. Skilled in data analytics, Power BI, SQL, prompt engineering, and AI-powered workflow automation.</p>
+        <p>Passionate about delivering end-to-end data-driven solutions — from exploratory analysis and predictive modeling to cloud deployments and intelligent automation pipelines.</p>
         <div class="about-links">
           <a class="about-link" href="https://www.linkedin.com/in/siva-sankaravel-400145323" target="_blank">linkedin.com/in/siva-sankaravel-400145323</a>
           <a class="about-link" href="https://github.com/Siva-S-05" target="_blank">github.com/Siva-S-05</a>
+          <a class="about-link" href="https://www.kaggle.com/sivas07" target="_blank">kaggle.com/sivas07</a>
         </div>
       </div>
       <div class="about-right fade-up">
@@ -741,7 +774,7 @@
           <div class="about-photo-label">AI & Data Science</div>
         </div>
         <div class="about-stats-row">
-          <div class="astat"><div class="astat-num">3</div><div class="astat-label">Internships</div></div>
+          <div class="astat"><div class="astat-num">2+</div><div class="astat-label">Internships</div></div>
           <div class="astat"><div class="astat-num">7</div><div class="astat-label">Projects</div></div>
           <div class="astat"><div class="astat-num">7.42</div><div class="astat-label">CGPA</div></div>
         </div>
@@ -765,13 +798,38 @@
         <div class="card-visual">
           <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&q=80" alt="Customer Churn Prediction" loading="lazy"/>
           <div class="card-visual-overlay"></div>
-          <div class="card-tag">Data Science / ML</div>
+          <div class="card-tag">Full Stack ML</div>
           <div class="card-year">2026</div>
         </div>
         <div class="card-body">
           <div class="card-stack">FastAPI · Python · Scikit-learn · Render · GitHub Pages · JavaScript</div>
           <h3 class="card-title">Customer Churn Prediction System</h3>
           <p class="card-desc">Built and deployed a full-stack customer churn prediction system using Random Forest and FastAPI with real-time inference and cloud integration. Accessible live via GitHub Pages frontend calling a Render-hosted API.</p>
+        </div>
+      </div>
+
+      <!-- GatherMonk AI Pipeline — wide -->
+      <div class="project-card card-wide fade-up">
+        <div class="card-visual">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80" alt="AI Automation ETL Pipeline" loading="lazy"/>
+          <div class="card-visual-overlay"></div>
+          <div class="card-tag">AI Automation · ETL</div>
+          <div class="card-year" style="background:#0f7b6c;">Present</div>
+        </div>
+        <div class="card-body">
+          <div class="card-stack">Python · MySQL · Claude AI · WordPress REST API · openpyxl · JSON-LD · Regex</div>
+          <h3 class="card-title">GatherMonk AI Content Automation Pipeline</h3>
+          <p class="card-desc">End-to-end ETL system automating SEO-optimized landing page generation and publishing via Claude AI and WordPress REST API. Built at MercuryMinds Technologies.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+            <span style="background:#e6f9f3;border:1px solid #a3e0c8;padding:3px 10px;border-radius:12px;font-size:0.68rem;font-weight:600;color:#0a6b4c;">Claude AI Integration</span>
+            <span style="background:#e8f0fe;border:1px solid rgba(26,86,219,0.3);padding:3px 10px;border-radius:12px;font-size:0.68rem;font-weight:600;color:#1a56db;">ETL Pipeline</span>
+            <span style="background:#fff4e6;border:1px solid #f0c67a;padding:3px 10px;border-radius:12px;font-size:0.68rem;font-weight:600;color:#8a5f00;">SEO Automation</span>
+          </div>
+          <ul style="margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:5px;">
+            <li style="font-size:0.8rem;color:var(--dark-grey);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">–</span>Orchestrated Excel + MySQL data through Claude AI copy generation to WordPress REST API as drafts</li>
+            <li style="font-size:0.8rem;color:var(--dark-grey);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">–</span>Prompt-engineered Claude AI for structured HTML, FAQs, Open Graph metadata, and JSON-LD schemas</li>
+            <li style="font-size:0.8rem;color:var(--dark-grey);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">–</span>Built duplicate detection, taxonomy validation, fuzzy matching (difflib), retry backoff, and error recovery</li>
+          </ul>
         </div>
       </div>
 
@@ -840,7 +898,7 @@
         <div class="card-visual">
           <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=700&q=80" alt="Web Scraping Python" loading="lazy"/>
           <div class="card-visual-overlay"></div>
-          <div class="card-tag">Web Scraping / Analytics</div>
+          <div class="card-tag">Web Scraping</div>
           <div class="card-year">2025</div>
         </div>
         <div class="card-body">
@@ -904,33 +962,40 @@
         <span class="sh-meta">Internships</span>
       </div>
       <div class="exp-list">
+
+        <!-- MercuryMinds — current -->
         <div class="exp-item fade-up">
           <span class="exp-period">Present</span>
           <div>
-            <h3 class="exp-role">Data Analyst Intern</h3>
+            <div class="badge-current">● Current Role</div>
+            <h3 class="exp-role">Data Analytics Intern</h3>
             <p class="exp-company">MercuryMinds Technologies</p>
-            <p class="exp-desc">Conducted AI-assisted market research and product use-case analysis, leveraging web scraping (Selenium, BeautifulSoup, Playwright, Requests) and SQL to gather, analyze, and transform industry data into actionable business insights and strategic recommendations.</p>
+            <p class="exp-desc">Conducting AI-assisted market analysis to map product adoption, customer segments, and industry trends. Building web scraping workflows using Selenium, Playwright, and Requests for large-scale data collection.</p>
+            <div class="pipeline-detail">
+              <h4>🔧 GatherMonk AI Content Automation Pipeline</h4>
+              <ul>
+                <li>End-to-end ETL system automating SEO-optimized landing page generation via Claude AI and WordPress REST API</li>
+                <li>Orchestrated Excel + MySQL data through Claude AI copy generation published as WordPress drafts</li>
+                <li>Prompt-engineered Claude AI for structured HTML, FAQs, Open Graph metadata, and JSON-LD schemas</li>
+                <li>Built duplicate detection, taxonomy validation, fuzzy matching (difflib), retry backoff, and error recovery</li>
+              </ul>
+              <div class="pipeline-stack">Stack: Python · MySQL · openpyxl · Requests · WordPress REST API · Claude AI · JSON-LD · Regex</div>
+            </div>
           </div>
           <span class="exp-location">Chennai, IN</span>
         </div>
-        <div class="exp-item fade-up">
-          <span class="exp-period">2025</span>
-          <div>
-            <h3 class="exp-role">Machine Learning Intern</h3>
-            <p class="exp-company">Crescent Infotech</p>
-            <p class="exp-desc">Developed and trained ML models using Python, TensorFlow, and Scikit-Learn. Evaluated performance using accuracy, precision-recall, and F1-score metrics across classification and regression tasks.</p>
-          </div>
-          <span class="exp-location">Erode, IN</span>
-        </div>
+
+        <!-- Live Stream -->
         <div class="exp-item fade-up">
           <span class="exp-period">2024</span>
           <div>
-            <h3 class="exp-role">Python with Data Science Intern</h3>
+            <h3 class="exp-role">Data Science Intern</h3>
             <p class="exp-company">Live Stream Technologies</p>
-            <p class="exp-desc">Collected, cleaned, and preprocessed large datasets. Built ML models and created Power BI / Tableau dashboards to present insights and findings to business stakeholders.</p>
+            <p class="exp-desc">Preprocessed datasets, built ML models for prediction, and created Tableau and Power BI dashboards for stakeholders. Collaborated with cross-functional teams to analyze trends and optimize business strategies using statistical techniques.</p>
           </div>
           <span class="exp-location">Coimbatore, IN</span>
         </div>
+
       </div>
     </div>
   </section>
@@ -944,13 +1009,14 @@
       </div>
       <span class="sh-meta">Tech Stack</span>
     </div>
-    <div class="skills-grid">
+    <div class="skills-grid" style="grid-template-columns: repeat(5,1fr);">
       <div class="skill-block fade-up">
         <span class="skill-num">01</span>
         <div class="skill-icon">📊</div>
-        <h3 class="skill-name">Languages</h3>
+        <h3 class="skill-name">Data Analytics</h3>
         <div class="skill-tools">
-          <span>Python</span><span>SQL</span><span>MySQL</span>
+          <span>Python</span><span>Pandas</span><span>NumPy</span>
+          <span>Excel</span><span>Statistics</span><span>Predictive Modeling</span>
         </div>
       </div>
       <div class="skill-block fade-up">
@@ -959,36 +1025,42 @@
         <h3 class="skill-name">Visualization</h3>
         <div class="skill-tools">
           <span>Power BI</span><span>Tableau</span>
-          <span>Matplotlib</span><span>Seaborn</span><span>Dashboard Design</span>
+          <span>Matplotlib</span><span>Seaborn</span><span>Excel</span>
         </div>
       </div>
       <div class="skill-block fade-up">
         <span class="skill-num">03</span>
         <div class="skill-icon">🤖</div>
-        <h3 class="skill-name">Libraries & Frameworks</h3>
+        <h3 class="skill-name">Machine Learning</h3>
         <div class="skill-tools">
-          <span>Pandas</span><span>Numpy</span><span>Scikit-learn</span>
-          <span>Matplotlib</span><span>Seaborn</span><span>FastAPI</span><span>Playwright</span>
+          <span>Scikit-learn</span><span>TensorFlow</span>
+          <span>Deep Learning</span><span>FastAPI</span><span>Flask</span>
         </div>
       </div>
       <div class="skill-block fade-up">
         <span class="skill-num">04</span>
         <div class="skill-icon">☁️</div>
-        <h3 class="skill-name">Cloud & Deployment</h3>
+        <h3 class="skill-name">Cloud & DevOps</h3>
         <div class="skill-tools">
           <span>AWS</span><span>Terraform</span><span>Docker</span>
-          <span>REST APIs</span><span>Git</span><span>GitHub</span>
+          <span>GitHub Actions</span><span>CI/CD</span><span>Render</span>
         </div>
       </div>
       <div class="skill-block fade-up">
         <span class="skill-num">05</span>
-        <div class="skill-icon">🛠️</div>
-        <h3 class="skill-name">Tools</h3>
+        <div class="skill-icon">🧠</div>
+        <h3 class="skill-name">AI & Automation</h3>
         <div class="skill-tools">
-          <span>GitHub</span><span>Kaggle</span><span>Git</span>
-          <span>VS code</span><span>Flask</span><span>Postman</span>
+          <span>Claude AI</span><span>Prompt Engineering</span>
+          <span>LLM Integration</span><span>Selenium</span>
+          <span>Playwright</span><span>JSON-LD</span>
         </div>
       </div>
+    </div>
+    <!-- Tools row -->
+    <div style="margin-top:16px;padding:20px 28px;background:var(--off-white);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+      <span style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--grey);margin-right:8px;">Tools</span>
+      <span class="skill-tools"><span>Git</span><span>GitHub</span><span>VS Code</span><span>Postman</span><span>Kaggle</span><span>openpyxl</span><span>Requests</span><span>MySQL</span><span>SQL</span><span>JSON-LD</span><span>Regex</span></span>
     </div>
   </section>
 
@@ -1042,7 +1114,44 @@
           <p class="edu-degree">Secondary School Leaving Certificate</p>
           <p class="edu-school">SMA Matric Higher Secondary School, Tenkasi</p>
         </div>
-        <div class="edu-grade">90%</div>
+        <div class="edu-grade">92%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CO-CURRICULAR -->
+  <section id="cocurricular">
+    <div class="section-header-row fade-up">
+      <div>
+        <div class="section-label">07 / Activities</div>
+        <h2 class="section-title">Co-Curricular Activities</h2>
+      </div>
+      <span class="sh-meta">Events & Roles</span>
+    </div>
+    <div class="cocurr-grid">
+      <div class="cocurr-card fade-up">
+        <div class="cocurr-icon">🔬</div>
+        <div class="cocurr-role">Workshop Participant</div>
+        <div class="cocurr-title">AI Workshop</div>
+        <div class="cocurr-org">IIT Madras Research Park</div>
+      </div>
+      <div class="cocurr-card fade-up">
+        <div class="cocurr-icon">⛓️</div>
+        <div class="cocurr-role">Workshop Participant</div>
+        <div class="cocurr-title">Blockchain & Generative AI Workshop</div>
+        <div class="cocurr-org">KPR Institute</div>
+      </div>
+      <div class="cocurr-card fade-up">
+        <div class="cocurr-icon">🎯</div>
+        <div class="cocurr-role">Event Coordinator</div>
+        <div class="cocurr-title">AIVORA</div>
+        <div class="cocurr-org">P.A. College of Engineering and Technology</div>
+      </div>
+      <div class="cocurr-card fade-up">
+        <div class="cocurr-icon">📸</div>
+        <div class="cocurr-role">Member</div>
+        <div class="cocurr-title">Instagram Engineers Club</div>
+        <div class="cocurr-org">P.A. College of Engineering and Technology</div>
       </div>
     </div>
   </section>
@@ -1050,12 +1159,12 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-left fade-up">
-      <div class="section-label">07 / Contact</div>
+      <div class="section-label">08 / Contact</div>
       <h2>Let's work<br/>on something<br/><em>great</em></h2>
       <div class="contact-detail">
         <div class="contact-item"><label>Email</label><a href="mailto:sivavpy2005@gmail.com">sivavpy2005@gmail.com</a></div>
         <div class="contact-item"><label>Phone</label><a href="tel:+918072861947">+91 8072861947</a></div>
-        <div class="contact-item"><label>Location</label><span>Chennai, Tamil Nadu, India</span></div>
+        <div class="contact-item"><label>Location</label><span>Tenkasi, Tamil Nadu, India</span></div>
         <div class="contact-item"><label>Availability</label><span>Open to internships & full-time roles</span></div>
       </div>
     </div>
@@ -1083,8 +1192,12 @@
   </section>
 
   <footer>
-    <small>Created by Siva Sankaravel</small>
-    <small style="color:var(--mid-grey);">© 2026 · Chennai, Tamil Nadu, India</small>
+    <small>© 2026 — Siva S. All rights reserved.</small>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/siva-sankaravel-400145323" target="_blank">LinkedIn</a>
+      <a href="https://github.com/Siva-S-05" target="_blank">GitHub</a>
+      <a href="https://www.kaggle.com/sivas07" target="_blank">Kaggle</a>
+    </div>
   </footer>
 
   <script>
